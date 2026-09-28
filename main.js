@@ -134,6 +134,17 @@ document.querySelectorAll(".detail").forEach((dialog) => {
 
 // ---------- Hero phone: rotates to the right while scrolling ----------
 const phone = document.getElementById("phone");
+// Build the phone body thickness (layers behind the screen image)
+if (phone) {
+  const LAYERS = 14;
+  for (let i = LAYERS; i >= 1; i--) {
+    const edge = document.createElement("span");
+    edge.className = `phone__edge${i === LAYERS ? " phone__edge--back" : ""}`;
+    edge.style.setProperty("--i", i);
+    edge.setAttribute("aria-hidden", "true");
+    phone.prepend(edge);
+  }
+}
 if (phone && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const stage = phone.parentElement;
   let ticking = false;
