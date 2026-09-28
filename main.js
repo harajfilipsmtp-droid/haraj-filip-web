@@ -171,6 +171,8 @@ if (phoneTime) {
     const now = new Date();
     phoneTime.textContent = `${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}`;
     phoneTime.dateTime = now.toISOString();
+    const lockDate = document.getElementById("lockDate");
+    if (lockDate) lockDate.textContent = now.toLocaleDateString("sk-SK", { weekday: "long", day: "numeric", month: "long" });
   };
   tickClock();
   // Re-sync exactly on the next minute, then update every minute
@@ -191,36 +193,35 @@ const notifications = [
 const stack = document.getElementById("notifs");
 if (stack) {
   const MAX_VISIBLE = 3;
-  const AGES = ["teraz", "pred 1 min", "pred 3 min"];
+  const AGES = ["teraz", "pred 1 min", "pred 3 min"]; // newest (bottom) → oldest (top)
   let index = 0;
 
-  const build = ({ app, title, text }) => {
+  const build = ({ title, text }) => {
     const wrap = document.createElement("div");
     wrap.className = "notif-wrap";
     wrap.innerHTML = `<div><div class="notif">
       <span class="notif__icon">FH</span>
       <div class="notif__body">
-        <div class="notif__meta"><span></span><span class="notif__when"></span></div>
-        <p class="notif__title"></p><p class="notif__text"></p>
+        <div class="notif__row"><p class="notif__title"></p><span class="notif__when"></span></div>
+        <p class="notif__text"></p>
       </div></div></div>`;
-    wrap.querySelector(".notif__meta span").textContent = app;
     wrap.querySelector(".notif__title").textContent = title;
     wrap.querySelector(".notif__text").textContent = text;
     return wrap;
   };
 
+  // New notifications slide in at the bottom (like the iOS lock screen) and push older ones up
   const pushNext = () => {
     const wrap = build(notifications[index]);
     index = (index + 1) % notifications.length;
-    stack.prepend(wrap);
+    stack.append(wrap);
     requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.add("is-in")));
 
-    const live = [...stack.children].filter((el) => !el.classList.contains("is-out"));
+    const live = [...stack.children].filter((el) => !el.classList.contains("is-out")).reverse();
     live.forEach((el, i) => {
-      const when = el.querySelector(".notif__when");
-      if (i < AGES.length) when.textContent = AGES[i];
+      if (i < AGES.length) el.querySelector(".notif__when").textContent = AGES[i];
     });
-    // Drop the oldest once more than 3 are on screen
+    // Drop the oldest (top) once more than 3 are on screen
     live.slice(MAX_VISIBLE).forEach((el) => {
       el.classList.add("is-out");
       setTimeout(() => el.remove(), 600);
