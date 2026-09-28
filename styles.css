@@ -172,7 +172,7 @@ h1 .blue { display: inline; }
 .marquee { background: var(--ink); color: #fff; overflow: hidden; padding: 26px 0; }
 .marquee__track { display: flex; align-items: center; gap: 44px; width: max-content; animation: marquee 40s linear infinite; }
 .marquee span { font-family: var(--display); font-weight: 600; font-size: 1.75rem; letter-spacing: -0.02em; white-space: nowrap; }
-.marquee i { width: 8px; height: 8px; background: var(--lime); flex: none; }
+.marquee i { width: 8px; height: 8px; background: var(--blue); flex: none; }
 .marquee:hover .marquee__track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
