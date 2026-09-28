@@ -221,3 +221,63 @@ if (stack) {
     setInterval(pushNext, 2600);
   }, 1000);
 }
+
+// ---------- Interactive render (FIG section) ----------
+const scene = document.getElementById("scene");
+if (scene) {
+  const tilt = scene.querySelector(".scene__tilt");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // 3D tilt + glare + parallax that follow the mouse
+  if (!reduce && window.matchMedia("(hover: hover)").matches) {
+    scene.addEventListener("pointermove", (e) => {
+      const r = tilt.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5; // -0.5 … 0.5
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      scene.classList.add("is-hover");
+      tilt.style.setProperty("--ry", `${x * 8}deg`);
+      tilt.style.setProperty("--rx", `${-y * 8}deg`);
+      tilt.style.setProperty("--mx", (x * 2).toFixed(3));
+      tilt.style.setProperty("--my", (y * 2).toFixed(3));
+      tilt.style.setProperty("--gx", `${(x + 0.5) * 100}%`);
+      tilt.style.setProperty("--gy", `${(y + 0.5) * 100}%`);
+    });
+    scene.addEventListener("pointerleave", () => {
+      scene.classList.remove("is-hover");
+      ["--rx", "--ry", "--mx", "--my"].forEach((v) => tilt.style.removeProperty(v));
+    });
+  }
+
+  // Gentle vertical parallax while scrolling past the image
+  if (!reduce) {
+    let queued = false;
+    const onParallax = () => {
+      const r = tilt.getBoundingClientRect();
+      const progress = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight; // ~ -1 … 1
+      tilt.style.setProperty("--sy", `${Math.max(-1, Math.min(1, progress)) * 24}px`);
+      queued = false;
+    };
+    onParallax();
+    window.addEventListener("scroll", () => {
+      if (!queued) { queued = true; requestAnimationFrame(onParallax); }
+    }, { passive: true });
+  }
+
+  // Tags pop up one after another along the cable, like events in a pipeline
+  const tags = [...scene.querySelectorAll(".scene__tag")];
+  let current = 0;
+  let timer;
+  const step = () => {
+    const tag = tags[current];
+    tag.classList.add("is-on");
+    setTimeout(() => tag.classList.remove("is-on"), 2600);
+    current = (current + 1) % tags.length;
+  };
+  new IntersectionObserver(([entry]) => {
+    clearInterval(timer);
+    if (entry.isIntersecting) {
+      step();
+      timer = setInterval(step, 1300);
+    }
+  }, { threshold: 0.3 }).observe(scene);
+}
