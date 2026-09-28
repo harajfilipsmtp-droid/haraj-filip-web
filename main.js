@@ -33,9 +33,9 @@ updateTimeline();
 window.addEventListener("scroll", updateTimeline, { passive: true });
 
 // ---------- Contact form ----------
-// Sem vložte URL, kam sa má formulár odosielať (napr. Formspree, Make webhook
-// alebo Google Apps Script). Kým je prázdna, formulár otvorí e-mailového klienta.
-const FORM_ENDPOINT = "";
+// Odpovede spracúvajú Netlify Forms (formulár "kontakt" v index.html). Netlify ich
+// uloží a pošle e-mailom. Ak odoslanie zlyhá, formulár otvorí e-mailového klienta.
+const FORM_ENDPOINT = "/";
 const FALLBACK_EMAIL = "harajfilip.co@gmail.com";
 
 const form = document.getElementById("contactForm");
@@ -71,23 +71,27 @@ form.addEventListener("submit", async (e) => {
 
   const data = new FormData(form);
   const payload = {
+    "form-name": "kontakt",
+    subject: `Nový dopyt z webu – ${data.get("meno")}`,
     meno: data.get("meno"),
     email: data.get("email"),
     firma: data.get("firma"),
     telefon: data.get("telefon"),
     sluzby: data.getAll("sluzby").join(", "),
     sprava: data.get("sprava"),
-    _subject: `Nový dopyt z webu – ${data.get("meno")}`,
+    suhlas: "áno",
   };
 
-  if (!FORM_ENDPOINT) {
+  const mailtoFallback = () => {
     const body = Object.entries(payload)
-      .filter(([k, v]) => v && k !== "_subject")
+      .filter(([k, v]) => v && !["form-name", "subject", "suhlas"].includes(k))
       .map(([k, v]) => `${k}: ${v}`)
       .join("\n");
-    window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(payload._subject)}&body=${encodeURIComponent(body)}`;
-    return;
-  }
+    window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  // Opened straight from disk (no server) – fall back to the e-mail client
+  if (location.protocol === "file:") return mailtoFallback();
 
   const button = form.querySelector("button[type=submit]");
   button.disabled = true;
@@ -95,8 +99,8 @@ form.addEventListener("submit", async (e) => {
   try {
     const res = await fetch(FORM_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(payload),
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(payload).toString(),
     });
     if (!res.ok) throw new Error(res.status);
     form.reset();

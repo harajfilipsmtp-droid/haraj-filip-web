@@ -13,4 +13,5 @@ Prezentačný web Filipa Haraja (AI engineer a web developer, Košice).
 
 ## Kontaktný formulár
 
-Formulár zatiaľ otvára e-mailového klienta. Na priame odosielanie do Gmailu doplňte URL služby (napr. Formspree alebo Make webhook) do konštanty `FORM_ENDPOINT` v `main.js`.
+Formulár spracúvajú **Netlify Forms** (formulár `kontakt`). Každá odpoveď sa uloží v Netlify
+(Project → Forms) a príde e-mailom na harajfilip.co@gmail.com. Free plán zahŕňa 100 odpovedí mesačne.

@@ -402,7 +402,9 @@
         <p class="mono blue-text reveal">Kontakt</p>
         <h2 class="contact__title reveal">Máte proces, ktorý vás brzdí? <span class="blue">Poďme ho zautomatizovať.</span></h2>
         <div class="contact__grid">
-          <form class="form reveal" id="contactForm" novalidate>
+          <form class="form reveal" id="contactForm" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="_gotcha" novalidate>
+            <input type="hidden" name="form-name" value="kontakt" />
+            <input type="hidden" name="subject" value="Nový dopyt z webu" />
             <div class="form__head">
               <p class="mono">Nezáväzný dopyt</p>
               <span class="nodes"><i></i><i></i></span>
