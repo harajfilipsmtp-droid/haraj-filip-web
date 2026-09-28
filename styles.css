@@ -58,14 +58,21 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .nav { display: flex; gap: 34px; }
 .nav a { color: var(--muted); font-size: 0.97rem; transition: color 0.2s; }
 .nav a:hover { color: var(--ink); }
-.pill-btn {
-  justify-self: end; display: inline-flex; align-items: center; gap: 10px;
-  padding: 12px 20px; border-radius: 999px; background: var(--ink); color: #fff;
-  font-weight: 500; font-size: 0.97rem; transition: background 0.25s, transform 0.25s var(--ease);
+.header__right { justify-self: end; display: flex; align-items: center; gap: 10px; }
+.social {
+  display: grid; place-items: center; width: 42px; height: 42px;
+  border: 1.5px solid var(--ink); border-radius: 4px; color: var(--ink);
+  transition: background 0.25s, color 0.25s, transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
 }
-.pill-btn:hover { background: var(--blue); transform: translateY(-1px); }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 0 rgba(214, 242, 60, 0.7); animation: ping 2.2s infinite; }
-@keyframes ping { 70% { box-shadow: 0 0 0 7px rgba(214, 242, 60, 0); } 100% { box-shadow: 0 0 0 0 rgba(214, 242, 60, 0); } }
+.social svg { width: 18px; height: 18px; }
+.social:hover { background: var(--ink); color: #fff; transform: translate(-2px, -2px); box-shadow: 3px 3px 0 0 var(--blue); }
+.pill-btn {
+  display: inline-flex; align-items: center; height: 42px; padding: 0 20px; margin-left: 6px;
+  border-radius: 4px; background: var(--ink); color: #fff;
+  font-weight: 500; font-size: 0.97rem;
+  transition: background 0.25s, transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
+}
+.pill-btn:hover { background: var(--blue); transform: translate(-2px, -2px); box-shadow: 3px 3px 0 0 var(--ink); }
 
 /* ---------- Hero ---------- */
 .hero { padding: 90px 0 110px; }
@@ -384,7 +391,9 @@ body.has-dialog { overflow: hidden; }
   body { font-size: 16px; }
   .container { width: calc(100% - 32px); }
   .header__inner { height: 64px; }
-  .pill-btn { padding: 10px 16px; font-size: 0.9rem; }
+  .pill-btn { height: 38px; padding: 0 12px; margin-left: 2px; font-size: 0.88rem; }
+  .header__right { gap: 8px; }
+  .social { width: 38px; height: 38px; }
   .services { grid-template-columns: 1fr; gap: 20px; }
   .card::after { display: none; }
   .hero__actions { gap: 24px; }
