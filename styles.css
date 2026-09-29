@@ -52,10 +52,6 @@ ul, ol, dl, dd { margin: 0; padding: 0; list-style: none; }
 .header.is-scrolled { border-color: var(--soft-line); }
 .header__inner { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 76px; }
 .logo { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; }
-.logo__mark {
-  display: grid; place-items: center; width: 34px; height: 34px; border-radius: 7px;
-  background: var(--blue); color: #fff; font-weight: 900; font-size: 0.95rem; letter-spacing: -0.04em;
-}
 .nav { display: flex; gap: 34px; }
 .nav a { color: var(--muted); font-size: 0.97rem; transition: color 0.2s; }
 .nav a:hover { color: var(--ink); }
