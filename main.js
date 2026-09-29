@@ -192,8 +192,8 @@ const notifications = [
 ];
 const stack = document.getElementById("notifs");
 if (stack) {
-  const MAX_VISIBLE = 3;
-  const AGES = ["teraz", "pred 1 min", "pred 3 min"]; // newest (bottom) → oldest (top)
+  const MAX_VISIBLE = 4;
+  const AGES = ["teraz", "pred 1 min", "pred 3 min", "pred 6 min"]; // newest (bottom) → oldest (top)
   let index = 0;
 
   const build = ({ title, text }) => {
@@ -221,7 +221,7 @@ if (stack) {
     live.forEach((el, i) => {
       if (i < AGES.length) el.querySelector(".notif__when").textContent = AGES[i];
     });
-    // Drop the oldest (top) once more than 3 are on screen
+    // Drop the oldest (top) once more than 4 are on screen
     live.slice(MAX_VISIBLE).forEach((el) => {
       el.classList.add("is-out");
       setTimeout(() => el.remove(), 600);
