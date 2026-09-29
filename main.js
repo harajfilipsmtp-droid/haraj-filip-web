@@ -293,3 +293,60 @@ if (scene) {
     }
   }, { threshold: 0.3 }).observe(scene);
 }
+
+// ---------- Project screenshot sliders ----------
+document.querySelectorAll("[data-slider]").forEach((slider) => {
+  const item = slider.closest(".gallery__item");
+  const slides = [...slider.querySelectorAll(".slider__slide")];
+  const dotsEl = item.querySelector(".slider__dots");
+  const [prev, next] = item.querySelectorAll(".slider__btn");
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.setAttribute("aria-label", `Snímka ${i + 1}`);
+    dot.addEventListener("click", () => goTo(i));
+    dotsEl.append(dot);
+    return dot;
+  });
+  const current = () => (slider.clientWidth ? Math.round(slider.scrollLeft / slider.clientWidth) : 0);
+  const goTo = (i) => slider.scrollTo({ left: Math.max(0, Math.min(slides.length - 1, i)) * slider.clientWidth });
+  const update = () => {
+    const i = current();
+    dots.forEach((d, k) => d.classList.toggle("is-active", k === i));
+    prev.disabled = i === 0;
+    next.disabled = i === slides.length - 1;
+  };
+  prev.addEventListener("click", () => goTo(current() - 1));
+  next.addEventListener("click", () => goTo(current() + 1));
+  slider.addEventListener("scroll", () => requestAnimationFrame(update), { passive: true });
+
+  // Drag to swipe with the mouse (touch already swipes natively)
+  let startX = null, startScroll = 0;
+  slider.addEventListener("pointerdown", (e) => {
+    if (e.pointerType !== "mouse") return;
+    startX = e.clientX; startScroll = slider.scrollLeft;
+    slider.style.scrollSnapType = "none"; slider.style.scrollBehavior = "auto"; slider.style.cursor = "grabbing";
+  });
+  window.addEventListener("pointermove", (e) => {
+    if (startX !== null) slider.scrollLeft = startScroll - (e.clientX - startX);
+  });
+  window.addEventListener("pointerup", (e) => {
+    if (startX === null) return;
+    const moved = e.clientX - startX;
+    startX = null;
+    slider.style.scrollSnapType = ""; slider.style.scrollBehavior = ""; slider.style.cursor = "";
+    const base = Math.round(startScroll / slider.clientWidth);
+    goTo(Math.abs(moved) > 40 ? base - Math.sign(moved) : base);
+  });
+
+  // Keyboard arrows when the slider is focused
+  slider.tabIndex = 0;
+  slider.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") { e.preventDefault(); goTo(current() + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); goTo(current() - 1); }
+  });
+  update();
+  // Re-sync when the detail panel opens (the slider has no width while closed)
+  slider.closest("dialog")?.addEventListener("toggle", update);
+  new ResizeObserver(update).observe(slider);
+});
