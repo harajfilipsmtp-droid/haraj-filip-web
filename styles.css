@@ -438,12 +438,16 @@ body.has-dialog { overflow: hidden; }
 }
 .dphone .slider { height: 100%; border-radius: 32px; background: #0b141a; }
 .dphone .slider img { height: 100%; object-fit: cover; object-position: top; }
+.dphone--wide { aspect-ratio: 9 / 16; }
+.dphone--wide .slider { background: #eef1f5; }
 .dphone__island { position: absolute; z-index: 2; top: 17px; left: 50%; width: 30%; height: 20px; transform: translateX(-50%); border-radius: 12px; background: #000; }
 .dbrowser { border: 1.5px solid var(--ink); border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 5px 5px 0 0 var(--blue); }
 .dbrowser__bar { display: flex; align-items: center; gap: 6px; padding: 9px 12px; border-bottom: 1.5px solid var(--ink); background: var(--bg); }
 .dbrowser__bar i { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--ink); }
 .dbrowser__bar span { margin-left: 10px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
 .dbrowser .slider img { aspect-ratio: 1898 / 856; object-fit: cover; object-position: top left; }
+.gallery__item--mail { width: min(460px, 100%); margin-inline: auto; }
+.dbrowser.dbrowser--mail .slider img { aspect-ratio: 1000 / 1130; object-position: top center; }
 .slider {
   position: relative; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth;
   scrollbar-width: none; overscroll-behavior-x: contain; cursor: grab;
