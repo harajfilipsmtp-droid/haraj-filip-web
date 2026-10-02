@@ -350,3 +350,46 @@ document.querySelectorAll("[data-slider]").forEach((slider) => {
   slider.closest("dialog")?.addEventListener("toggle", update);
   new ResizeObserver(update).observe(slider);
 });
+
+// ---------- Device previews on the project cards ----------
+// Reuses the phone / MacBook from each project's detail panel and cycles its screenshots.
+document.querySelectorAll(".project").forEach((card) => {
+  const btn = card.querySelector("[data-open]");
+  const dialog = btn && document.getElementById(btn.dataset.open);
+  const device = dialog?.querySelector(".gallery .dmac, .gallery .dphone");
+  if (!device) return;
+
+  const clone = device.cloneNode(true);
+  clone.querySelectorAll("[data-slider]").forEach((s) => {
+    s.removeAttribute("data-slider");
+    s.removeAttribute("aria-label");
+    s.removeAttribute("aria-roledescription");
+  });
+  const slides = [...clone.querySelectorAll(".slider__slide")];
+
+  const preview = document.createElement("button");
+  preview.type = "button";
+  preview.className = `project__preview ${clone.classList.contains("dmac") ? "is-mac" : "is-phone"}`;
+  preview.setAttribute("aria-label", `Pozrieť ukážky projektu: ${card.querySelector("h3").textContent}`);
+  preview.append(clone);
+  const hint = document.createElement("span");
+  hint.className = "project__hint mono";
+  hint.textContent = `${slides.length} ukážok · klikni pre detail →`;
+  preview.append(hint);
+  preview.addEventListener("click", () => btn.click());
+  card.querySelector(".project__side").prepend(preview);
+
+  // Crossfade through the screenshots while the card is on screen
+  let i = 0;
+  let timer;
+  slides[0].classList.add("is-active");
+  const next = () => {
+    slides[i].classList.remove("is-active");
+    i = (i + 1) % slides.length;
+    slides[i].classList.add("is-active");
+  };
+  new IntersectionObserver(([entry]) => {
+    clearInterval(timer);
+    if (entry.isIntersecting && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) timer = setInterval(next, 2600);
+  }, { threshold: 0.3 }).observe(preview);
+});

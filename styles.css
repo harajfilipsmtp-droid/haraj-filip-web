@@ -460,6 +460,24 @@ body.has-dialog { overflow: hidden; }
 .dbrowser .slider img { aspect-ratio: 1898 / 856; object-fit: cover; object-position: top left; }
 .gallery__item--mail { width: min(460px, 100%); margin-inline: auto; }
 .dbrowser.dbrowser--mail .slider img { aspect-ratio: 1000 / 1130; object-position: top center; }
+/* Device previews on the project cards */
+.project__preview {
+  display: grid; justify-items: center; gap: 12px; width: 100%; margin: 0 0 28px; padding: 22px 18px 14px;
+  border: 1.5px solid var(--ink); border-radius: 10px; background: linear-gradient(180deg, #e3e5ee, #d6d9e6);
+  cursor: pointer; font: inherit; color: inherit;
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.project__preview:hover { transform: translate(-4px, -4px); box-shadow: 6px 6px 0 0 var(--blue); }
+.project__preview.is-phone .dphone { width: 168px; padding: 6px; border-radius: 28px; }
+.project__preview.is-phone .dphone .slider { border-radius: 23px; }
+.project__preview.is-phone .dphone__island { top: 11px; height: 13px; border-radius: 8px; }
+.project__preview.is-mac .dmac { width: 100%; }
+.project__preview .slider { overflow: hidden; cursor: inherit; scroll-snap-type: none; }
+.project__preview .slider__track { position: relative; }
+.project__preview .slider__slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.9s var(--ease); }
+.project__preview .slider__slide.is-active { opacity: 1; }
+.project__hint { font-size: 0.7rem; color: var(--ink); }
+.project__preview:hover .project__hint { color: var(--blue); }
 /* MacBook mockup for desktop screenshots */
 .gallery__item.gallery__item--mac { width: 100%; }
 .dmac { padding: 0 4%; }
