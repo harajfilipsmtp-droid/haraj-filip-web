@@ -440,7 +440,7 @@ body.has-dialog { overflow: hidden; }
 
 /* Project gallery: swipeable screenshots in a phone and a browser window */
 .gallery { display: grid; gap: 44px; }
-.gallery__item:first-child { width: 270px; margin-inline: auto; }
+.gallery__item:has(> .dphone) { width: 270px; margin-inline: auto; }
 .gallery__item { display: grid; gap: 12px; min-width: 0; }
 .gallery__cap { text-align: center; font-size: 0.72rem; white-space: nowrap; }
 .dphone {
@@ -505,7 +505,7 @@ body.has-dialog { overflow: hidden; }
 .slider__dots button.is-active { width: 22px; border-radius: 4px; background: var(--blue); border-color: var(--blue); }
 @media (max-width: 640px) {
   .gallery { gap: 36px; }
-  .gallery__item:first-child { width: min(250px, 75%); }
+  .gallery__item:has(> .dphone) { width: min(250px, 75%); }
   .gallery__item.gallery__item--mac { width: 100%; }
   .dmac__lid { border-radius: 10px 10px 4px 4px; }
   .dmac__base { height: 9px; }
