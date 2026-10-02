@@ -391,7 +391,7 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
 
 /* Project detail button + slide-in panel */
 .more {
-  display: inline-flex; align-items: center; gap: 12px; margin-top: 26px; padding: 11px 16px;
+  display: flex; width: 100%; justify-content: center; align-items: center; gap: 12px; margin-top: 26px; padding: 14px 16px;
   border: 1.5px solid var(--ink); border-radius: 4px; background: transparent; color: var(--ink);
   font: 600 0.95rem var(--sans); cursor: pointer;
   transition: background 0.25s, color 0.25s, transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
