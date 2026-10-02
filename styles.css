@@ -467,7 +467,15 @@ body.has-dialog { overflow: hidden; }
   position: relative; padding: 2.2% 2.2% 2.6%; border-radius: 18px 18px 6px 6px;
   background: #0d0d10; box-shadow: 0 0 0 1.5px #3a3a40, inset 0 0 0 1px #26262b;
 }
-.dmac__notch { position: absolute; z-index: 2; top: 0; left: 50%; width: 13%; height: 3.4%; transform: translateX(-50%); border-radius: 0 0 8px 8px; background: #0d0d10; }
+/* Notch reaches down into the display, like on MacBook Pro / Air */
+.dmac__notch {
+  position: absolute; z-index: 2; top: 0; left: 50%; width: 12%; height: 7.2%; transform: translateX(-50%);
+  border-radius: 0 0 9px 9px; background: #0d0d10; pointer-events: none;
+}
+.dmac__notch::after {
+  content: ""; position: absolute; left: 50%; top: 38%; width: 7px; height: 7px; transform: translateX(-50%);
+  border-radius: 50%; background: radial-gradient(circle at 35% 35%, #3b4a6b, #10131c 60%); box-shadow: 0 0 0 1.5px #1b1b20;
+}
 .dmac .slider { aspect-ratio: 1600 / 890; border-radius: 4px; background: #0b1230; }
 .dmac .slider img { height: 100%; object-fit: cover; object-position: top center; }
 .dmac__base {
