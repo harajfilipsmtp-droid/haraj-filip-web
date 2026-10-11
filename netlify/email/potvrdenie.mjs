@@ -97,7 +97,7 @@ export function html(meno, assets = {}) {
                       </tr>
                     </table>
 
-                    <h1 class="h1" style="margin:22px 0 18px;font-family:${display};font-size:34px;line-height:1.08;font-weight:800;letter-spacing:-1.2px;color:${ink};">Dobrý deň <span style="color:${blue};">${name}</span>,</h1>
+                    <h1 class="h1" style="margin:22px 0 18px;font-family:${display};font-size:34px;line-height:1.08;font-weight:800;letter-spacing:-1.2px;color:${ink};">Dobrý deň ${name},</h1>
 
                     <p style="margin:0 0 30px;font-family:${sans};font-size:16px;line-height:1.65;color:${muted};">
                       ďakujem za vyplnenie formulára na <a href="${SITE}" style="color:${ink};font-weight:600;text-decoration:none;border-bottom:1.5px solid ${blue};">filipharaj.com</a>. Váš dopyt som úspešne zaregistroval.

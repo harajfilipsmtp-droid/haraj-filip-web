@@ -226,15 +226,18 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
 .chips li { padding: 6px 10px; background: var(--bg-2); border-radius: 3px; font-family: var(--mono); font-size: 0.78rem; }
 
 /* MacBook that opens on scroll (sticky stage inside a tall wrapper) */
-.mbwrap { position: relative; height: 260vh; }
+/* svh, not vh: on phones vh changes while the address bar hides, which made the page jump */
+.mbwrap { position: relative; height: 260vh; height: 260svh; }
 .mbwrap__sticky {
   position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4vh; gap: 4svh;
   background: radial-gradient(60% 55% at 50% 58%, #f7f6f2, var(--bg) 70%);
 }
 .mbwrap__label { margin: 0; opacity: calc(var(--open, 0) * 1.4 - 0.2); }
+.mb__rig { will-change: transform; }
 .mb {
   --w: min(860px, 86vw, (100vh - 200px) * 0.98);
+  --w: min(860px, 86vw, (100svh - 200px) * 0.98);
   --h: calc(var(--w) * 0.65);
   --d: calc(var(--h) * 0.98);
   --t: calc(var(--w) * 0.016); /* base thickness */
@@ -703,7 +706,11 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
   .marquee { padding: 18px 0; }
   .marquee__track { gap: 30px; }
   .footer__inner { flex-direction: column; gap: 8px; }
-  .mbwrap { height: 200vh; }
+  /* Live backdrop blurs are costly on phones and caused stutter while scrolling */
+  .header { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(237, 236, 231, 0.97); }
+  .notif { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(50, 50, 56, 0.9); }
+  .lock__actions span { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(40, 40, 46, 0.8); }
+  .mbwrap { height: 200vh; height: 200svh; }
   .mb { --w: calc(100vw - 72px); --turn: -7deg; }
 }
 

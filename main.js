@@ -31,7 +31,12 @@ const updateTimeline = () => {
   steps.forEach((step) => step.classList.toggle("is-active", step.getBoundingClientRect().top < mark));
 };
 updateTimeline();
-window.addEventListener("scroll", updateTimeline, { passive: true });
+let timelineQueued = false;
+window.addEventListener("scroll", () => {
+  if (timelineQueued) return;
+  timelineQueued = true;
+  requestAnimationFrame(() => { updateTimeline(); timelineQueued = false; });
+}, { passive: true });
 
 // ---------- Contact form ----------
 // Odpovede spracúvajú Netlify Forms (formulár "kontakt" v index.html). Netlify ich
@@ -132,8 +137,8 @@ if (phone && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const updatePhone = () => {
     const rect = stage.getBoundingClientRect();
     // 0 when the page is at the top, 1 once the phone has scrolled ~70 % out of view
-    const progress = Math.min(Math.max(window.scrollY / (rect.height * 0.7), 0), 1);
-    stage.style.setProperty("--p", progress.toFixed(3));
+    const progress = Math.min(Math.max(window.scrollY / (rect.height * 0.7), 0), 1).toFixed(3);
+    if (progress !== stage.style.getPropertyValue("--p")) stage.style.setProperty("--p", progress);
     ticking = false;
   };
   updatePhone();
@@ -209,10 +214,13 @@ if (stack) {
     });
   };
 
-  setTimeout(() => {
-    pushNext();
-    setInterval(pushNext, 2600);
-  }, 1000);
+  // Only run while the phone is on screen, so it doesn't repaint during the rest of the page
+  let timer;
+  new IntersectionObserver(([entry]) => {
+    clearInterval(timer);
+    if (entry.isIntersecting) timer = setInterval(pushNext, 2600);
+  }).observe(stack);
+  setTimeout(pushNext, 1000);
 }
 
 // ---------- MacBook: lid opens with scroll, then a sample automation runs on screen ----------
@@ -221,16 +229,24 @@ if (mbwrap) {
   const mb = document.getElementById("mb");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const ease = (x) => 1 - Math.pow(1 - x, 3);
-  let open = 0;
+  const stage = mbwrap.querySelector(".mbwrap__sticky");
+  const label = mbwrap.querySelector(".mbwrap__label");
+  let open = -1;
 
   const onLid = () => {
     const r = mbwrap.getBoundingClientRect();
-    // 0 when the stage pins to the top, 1 after ~55 % of the pinned scroll distance
-    const progress = Math.min(Math.max(-r.top / ((r.height - window.innerHeight) * 0.55), 0), 1);
-    open = reduce ? 1 : ease(progress);
-    mb.style.setProperty("--open", open.toFixed(4));
-    mbwrap.style.setProperty("--open", open.toFixed(4));
-    if (open > 0.97) startApp(); else if (open < 0.8) stopApp();
+    // 0 when the stage pins to the top, 1 after ~55 % of the pinned scroll distance.
+    // The stage height (100svh) is used instead of innerHeight, which jumps on phones as the address bar hides.
+    const progress = Math.min(Math.max(-r.top / ((r.height - stage.offsetHeight) * 0.55), 0), 1);
+    const next = reduce ? 1 : Math.round(ease(progress) * 1000) / 1000;
+    if (next !== open) {
+      open = next;
+      mb.style.setProperty("--open", open);
+      label.style.setProperty("--open", open);
+    }
+    // Run the screen animation only while the section is actually on screen
+    const inView = r.bottom > 0 && r.top < window.innerHeight;
+    if (open > 0.97 && inView) startApp(); else stopApp();
   };
 
   const invoices = [
@@ -313,7 +329,9 @@ if (mbwrap) {
   let queued = false;
   onLid();
   window.addEventListener("scroll", () => {
-    if (!queued) { queued = true; requestAnimationFrame(() => { onLid(); queued = false; }); }
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { onLid(); queued = false; });
   }, { passive: true });
   window.addEventListener("resize", onLid);
 }
