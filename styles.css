@@ -282,7 +282,7 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
   position: absolute; top: 100%; left: 0; width: 100%; height: var(--d); transform-origin: 50% 0; transform: rotateX(90deg);
   border-radius: calc(var(--w) * 0.008) calc(var(--w) * 0.008) calc(var(--w) * 0.03) calc(var(--w) * 0.03);
   background:
-    url("assets/img/macbook-deck.svg") center / 100% 100% no-repeat,
+    url("assets/img/macbook-deck.webp") center / 100% 100% no-repeat, /* pre-rendered: a bitmap scales cheaply, the SVG re-rasterized on every scroll frame */
     radial-gradient(80% 70% at 50% 30%, rgba(255, 255, 255, 0.5), transparent 70%),
     linear-gradient(180deg, #d2d5da, #e6e8eb 35%, #dadde1);
   box-shadow: inset 0 0 0 1px #b4b7bd, inset 0 calc(var(--w) * -0.003) 0 rgba(255, 255, 255, 0.8);
@@ -404,8 +404,10 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
 .project__date { font-family: var(--mono); font-size: 0.8rem; color: var(--ink); white-space: nowrap; padding-left: 10px; border-left: 2px solid var(--blue); }
 .project__proof { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-bottom: 16px; font-size: 0.85rem; color: var(--muted); }
 .live { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border: 1.5px solid var(--ink); border-radius: 999px; font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); background: #fff; }
-.live i { width: 7px; height: 7px; border-radius: 50%; background: #1fb85a; box-shadow: 0 0 0 0 rgba(31, 184, 90, 0.6); animation: livePing 2s infinite; }
-@keyframes livePing { 70% { box-shadow: 0 0 0 6px rgba(31, 184, 90, 0); } 100% { box-shadow: 0 0 0 0 rgba(31, 184, 90, 0); } }
+.live i { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #1fb85a; }
+/* Pulse ring animated with transform/opacity (GPU) instead of box-shadow, which repainted every frame */
+.live i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: rgba(31, 184, 90, 0.6); animation: livePing 2s infinite; }
+@keyframes livePing { 0% { transform: scale(1); opacity: 1; } 70%, 100% { transform: scale(2.7); opacity: 0; } }
 .inline-link { color: var(--blue); font-weight: 500; border-bottom: 1.5px solid currentColor; }
 .detail__source { justify-self: start; font-size: 0.92rem; font-weight: 500; color: var(--blue); border-bottom: 1.5px solid currentColor; }
 .project__main .mono { margin-bottom: 14px; }
