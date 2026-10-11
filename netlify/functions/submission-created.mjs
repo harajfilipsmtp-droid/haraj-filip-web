@@ -22,7 +22,8 @@ export const handler = async (event) => {
 
   const transport = nodemailer.createTransport({
     service: "gmail",
-    auth: { user: GMAIL_USER, pass: GMAIL_APP_PASSWORD },
+    // Google shows app passwords in groups of four ("abcd efgh …"); the spaces are not part of it
+    auth: { user: GMAIL_USER.trim(), pass: GMAIL_APP_PASSWORD.replace(/\s+/g, "") },
   });
 
   const name = meno.trim() || "";
