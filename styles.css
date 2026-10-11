@@ -258,7 +258,10 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
   /* --open 0 → lid lies closed just above the deck, 1 → open and tilted slightly back */
   transform: translateY(calc(var(--w) * -0.005)) rotateX(calc(-90deg + var(--open, 0) * 100deg));
 }
-.mb__face, .mb__back { position: absolute; inset: 0; border-radius: calc(var(--w) * 0.026) calc(var(--w) * 0.026) calc(var(--w) * 0.008) calc(var(--w) * 0.008); backface-visibility: hidden; }
+.mb__face, .mb__back { position: absolute; inset: 0; border-radius: calc(var(--w) * 0.026) calc(var(--w) * 0.026) calc(var(--w) * 0.008) calc(var(--w) * 0.008); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+/* iPhone (WebKit) ignores backface-visibility for animated layers inside the screen, so the closed lid showed
+   the display instead of the aluminium back. Hide the screen side until the lid is actually lifted. */
+.mb__face { opacity: clamp(0, (var(--open, 0) - 0.12) * 25, 1); }
 /* Black glass bezel with the thin aluminium rim around it */
 .mb__face {
   background: #050506; overflow: hidden;
