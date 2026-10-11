@@ -128,24 +128,66 @@
       </div>
     </section>
 
-    <!-- FIGURE -->
-    <section class="figure-wrap">
-      <div class="container">
-        <figure class="figure reveal">
-          <div class="scene" id="scene">
-            <div class="scene__tilt">
-              <picture><source srcset="assets/img/flow-render.webp" type="image/webp" /><img src="assets/img/flow-render.jpg" alt="Systémy prepojené modrým káblom – vstup, logika, výstup" width="2394" height="1051" loading="lazy" /></picture>
-              <span class="scene__glare" aria-hidden="true"></span>
-              <div class="scene__tags" aria-hidden="true">
-                <span class="scene__tag" style="--x:24%; --y:14%"><i></i>Nová správa z WhatsAppu</span>
-                <span class="scene__tag" style="--x:44%; --y:26%"><i></i>Lead kvalifikovaný AI</span>
-                <span class="scene__tag" style="--x:60%; --y:8%"><i></i>Hovor rezervovaný</span>
-                <span class="scene__tag" style="--x:70%; --y:44%"><i></i>Objednávka odoslaná</span>
-                <span class="scene__tag" style="--x:84%; --y:24%"><i></i>Faktúra vystavená</span>
+    <!-- MACBOOK: opens while scrolling, then runs a sample automation -->
+    <section class="mbwrap" id="mbwrap">
+      <div class="mbwrap__sticky">
+        <p class="mono-label mbwrap__label"><span class="line"></span>Ukážka: automatické spracovanie faktúry</p>
+        <div class="mb" id="mb" role="img" aria-label="MacBook, na ktorom beží automatizácia: faktúra z Gmailu, AI vyčíta údaje, zápis do CRM a spárovanie platby">
+          <div class="mb__rig" aria-hidden="true">
+            <div class="mb__lid">
+              <div class="mb__face">
+                <span class="dmac__notch"></span>
+                <div class="mb__screen">
+                  <div class="app" id="app">
+                    <div class="app__bar">
+                      <span class="app__dots"><i></i><i></i><i></i></span>
+                      <span class="app__title">Automatizácia · Faktúry → CRM</span>
+                      <span class="app__live"><i></i>Beží</span>
+                    </div>
+                    <div class="app__flow">
+                      <div class="app__node" data-node="1"><span class="app__icon"><img src="assets/img/tools/gmail.svg" alt="" /></span><b>Gmail</b><small>Nový e-mail</small></div>
+                      <div class="app__link" data-link="1"><i></i></div>
+                      <div class="app__node" data-node="2"><span class="app__icon app__icon--ai">AI</span><b>AI / OCR</b><small>Číta faktúru</small></div>
+                      <div class="app__link" data-link="2"><i></i></div>
+                      <div class="app__node" data-node="3"><span class="app__icon"><img src="assets/img/tools/monday.svg" alt="" /></span><b>Monday CRM</b><small>Zápis</small></div>
+                      <div class="app__link" data-link="3"><i></i></div>
+                      <div class="app__node" data-node="4"><span class="app__icon app__icon--bank">€</span><b>Banka</b><small>Párovanie</small></div>
+                    </div>
+                    <div class="app__panels">
+                      <div class="app__card">
+                        <p class="app__h">Vyčítané údaje</p>
+                        <dl class="app__fields">
+                          <div><dt>Dodávateľ</dt><dd data-field="sup"></dd></div>
+                          <div><dt>Suma</dt><dd data-field="sum"></dd></div>
+                          <div><dt>Splatnosť</dt><dd data-field="due"></dd></div>
+                          <div><dt>VS</dt><dd data-field="vs"></dd></div>
+                        </dl>
+                      </div>
+                      <div class="app__card">
+                        <p class="app__h">Dashboard faktúr <span class="app__saved">Ušetrené dnes: <b id="appSaved">2 h 40 min</b></span></p>
+                        <ul class="app__rows" id="appRows">
+                          <li><span>Kancel Pro a.s.</span><span>389,90 €</span><em class="is-paid">Zaplatená</em></li>
+                          <li><span>Teleko s.r.o.</span><span>64,00 €</span><em class="is-paid">Zaplatená</em></li>
+                          <li><span>Autoservis Novák</span><span>512,40 €</span><em class="is-paid">Zaplatená</em></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <p class="app__toast" id="appToast">✓ Faktúra spárovaná s platbou</p>
+                  </div>
+                </div>
+                <span class="mb__off"></span>
+                <span class="mb__glare"></span>
               </div>
+              <div class="mb__back"></div>
             </div>
+            <div class="mb__floor"></div>
+            <div class="mb__deck"><span class="mb__glow"></span></div>
+            <div class="mb__hinge"></div>
+            <div class="mb__lip"><span></span></div>
+            <div class="mb__side mb__side--l"></div>
+            <div class="mb__side mb__side--r"></div>
           </div>
-        </figure>
+        </div>
       </div>
     </section>
 
@@ -162,16 +204,15 @@
         </div>
 
         <div class="projects">
-          <article class="project reveal">
-            <div class="project__aside"><span class="project__num">01</span><time class="project__date" datetime="2026-10-01">1. 10. 2026</time></div>
-            <div class="project__main">
+          <article class="project">
+            <div class="project__aside reveal"><span class="project__num">01</span><time class="project__date" datetime="2026-10-01">1. 10. 2026</time></div>
+            <div class="project__main reveal">
               <p class="project__proof"><span class="live"><i></i>V prevádzke</span></p>
               <p class="mono">Brány, ploty a zábradlia</p>
               <h3>Chatbot a konfigurátor v jednom s orientačnou cenou</h3>
               <div class="flowline"><span>Web chatbot</span><i></i><span>Konfigurátor</span><i></i><span>Cenová kalkulačka</span><i></i><span class="is-blue">E-mail dopyt</span></div>
-              <button type="button" class="more" data-open="detail-5">Ako to funguje <span class="more__icon">+</span></button>
             </div>
-            <div class="project__side">
+            <div class="project__side reveal">
               <p>
                 Interaktívny chatbot, ktorý funguje ako kompletný sprievodca a konfigurátor pre brány, ploty, prístrešky či
                 garážové brány. Klient si vyklikne produkt, vzor, farbu a rozmery a na konci hneď uvidí orientačnú cenu.
@@ -179,17 +220,88 @@
               </p>
               <p class="result"><i></i>Okamžitá cena pre zákazníka 24/7 a kvalifikované dopyty priamo do schránky.</p>
             </div>
+            <div class="project__detail">
+              <a class="reveal reveal--solo detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
+
+              <div class="reveal reveal--solo gallery">
+                <div class="gallery__item">
+                  <div class="dphone dphone--wide">
+                    <span class="dphone__island" aria-hidden="true"></span>
+                    <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky chatbota a konfigurátora">
+                      <div class="slider__track">
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-chat-1.webp" type="image/webp" /><img src="assets/img/projects/kp-chat-1.jpg" alt="Chatbot VITO víta zákazníka a ponúka výber produktov" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-chat-2.webp" type="image/webp" /><img src="assets/img/projects/kp-chat-2.jpg" alt="Výber vzoru výplne brány s obrázkami" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-chat-3.webp" type="image/webp" /><img src="assets/img/projects/kp-chat-3.jpg" alt="Výber farby z ponuky RAL odtieňov" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-chat-4.webp" type="image/webp" /><img src="assets/img/projects/kp-chat-4.jpg" alt="Zadanie rozmerov stavebného otvoru" loading="lazy" /></picture></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slider__nav">
+                    <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
+                    <span class="slider__dots"></span>
+                    <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
+                  </div>
+                  <p class="mono gallery__cap">Konfigurácia v chatbote</p>
+                </div>
+                <div class="gallery__item gallery__item--wide gallery__item--mail">
+                  <div class="dbrowser dbrowser--mail">
+                    <div class="dbrowser__bar" aria-hidden="true"><i></i><i></i><i></i><span>Doručená pošta · Nový dopyt</span></div>
+                    <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky e-mailu s dopytom">
+                      <div class="slider__track">
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-mail-1.webp" type="image/webp" /><img src="assets/img/projects/kp-mail-1.jpg" alt="E-mail s novým dopytom: kontaktné údaje a detaily projektu" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-mail-2.webp" type="image/webp" /><img src="assets/img/projects/kp-mail-2.jpg" alt="E-mail s orientačnou cenou a priebehom konverzácie" loading="lazy" /></picture></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slider__nav">
+                    <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
+                    <span class="slider__dots"></span>
+                    <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
+                  </div>
+                  <p class="mono gallery__cap">Dopyt, ktorý príde firme do e-mailu</p>
+                </div>
+              </div>
+
+              <details class="reveal reveal--solo detail__block detail__more">
+                <summary>Zobraziť zadanie a postup krok po kroku <span class="more__icon">+</span></summary>
+                <div class="detail__more-body">
+                  <p class="mono">Zadanie</p>
+                  <p>Mám za sebou vývoj interaktívneho chatbota, ktorý funguje ako kompletný sprievodca a konfigurátor pre exteriérové prvky — brány, ploty, prístrešky či garážové brány.</p><p>Spojili sme silu chatbota a cenovej kalkulačky do jedného plynulého zážitku, aby sme zákazníkom uľahčili výber a predajcom priniesli pripravené obchody.</p>
+
+                <div class="detail__block">
+                  <p class="mono">Ako to funguje krok po kroku</p>
+                  <ol class="detail__steps">
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 01</p><h4>Interaktívna vyklikávačka</h4><p>Klient si postupne zvolí produkt — brány, ploty, zábradlia, prístrešky či garážové brány.</p><p>Následne vyberie preferovaný vzor výplne, farbu, prípadne doplnky a zadá rozmery. Všetko pomocou tlačidiel a obrázkov, bez zložitého písania.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 02</p><h4>Okamžitá orientačná cena</h4><p>Hneď na konci konfigurácie chatbot zákazníkovi zobrazí predbežnú cenovú ponuku. Žiadne zbytočné čakanie na odpoveď.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 03</p><h4>Kompletný dopyt do e-mailu</h4><p>Firma okamžite dostane e-mail s detailnou špecifikáciou potrieb klienta — kontaktné údaje, produkt, vzor, rozmery, materiál, farbu aj orientačnú cenu.</p><p>Súčasťou e-mailu je celá história chatu, takže obchodník hneď vie, čo klient riešil.</p></li>
+                  </ol>
+                </div>
+                </div>
+              </details>
+
+              <div class="reveal reveal--solo detail__result">
+                <p class="mono">Hlavné benefity</p>
+                <p><strong>Pre zákazníka:</strong> okamžitá orientačná cena 24/7 a maximálne prehľadný výber bez frustrácie z hľadania.</p>
+                <p><strong>Pre firmu:</strong> kvalifikované a presné dopyty priamo do schránky — s jasnými rozmermi, farbami a vzormi pripravenými na tvorbu finálnej ponuky.</p>
+              </div>
+
+              <div class="reveal reveal--solo detail__block">
+                <p class="mono">Použité nástroje</p>
+                <ul class="chips"><li>Web chatbot</li><li>Konfigurátor</li><li>Cenová kalkulačka</li><li>E-mail notifikácie</li><li>GDPR súhlas</li></ul>
+              </div>
+
+              <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
+            </div>
           </article>
-          <article class="project reveal">
-            <div class="project__aside"><span class="project__num">02</span><time class="project__date" datetime="2026-09-26">26. 9. 2026</time></div>
-            <div class="project__main">
+          <article class="project">
+            <div class="project__aside reveal"><span class="project__num">02</span><time class="project__date" datetime="2026-09-26">26. 9. 2026</time></div>
+            <div class="project__main reveal">
               <p class="project__proof"><span class="live"><i></i>V prevádzke</span></p>
               <p class="mono">Obchod a predaj</p>
               <h3>Automatizovaný obchodný proces od webu po faktúru</h3>
               <div class="flowline"><span>Web</span><i></i><span>AI semafor</span><i></i><span>Kalendár</span><i></i><span class="is-blue">Monday CRM</span></div>
-              <button type="button" class="more" data-open="detail-1">Ako to funguje <span class="more__icon">+</span></button>
             </div>
-            <div class="project__side">
+            <div class="project__side reveal">
               <p>
                 Odpovede z webového dotazníka idú priamo do monday.com. AI vyhodnotí lead — vhodný klient si hneď vyberie
                 termín hovoru podľa voľných kalendárov obchodníkov a dostane pozvánku na Google Meet. Po hovore sa faktúra
@@ -197,443 +309,305 @@
               </p>
               <p class="result"><i></i>Nulové riziko straty kontaktu a prehľad o každom obchode na jednom mieste.</p>
             </div>
+            <div class="project__detail">
+              <a class="reveal reveal--solo detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
+
+              <div class="reveal reveal--solo gallery">
+                <div class="gallery__item gallery__item--mac">
+                  <div class="dmac">
+                    <div class="dmac__lid">
+                      <span class="dmac__notch" aria-hidden="true"></span>
+                      <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky webu, CRM a automatizácií">
+                        <div class="slider__track">
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-1.webp" type="image/webp" /><img src="assets/img/projects/jk-1.jpg" alt="Landing page s CTA na kvalifikačný dotazník" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-2.webp" type="image/webp" /><img src="assets/img/projects/jk-2.jpg" alt="Video a viackrokový kvalifikačný dotazník" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-3.webp" type="image/webp" /><img src="assets/img/projects/jk-3.jpg" alt="Sekcia Ako to funguje na webe" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-4.webp" type="image/webp" /><img src="assets/img/projects/jk-4.jpg" alt="Záverečná výzva na vyplnenie dotazníka" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-5.webp" type="image/webp" /><img src="assets/img/projects/jk-5.jpg" alt="monday CRM: centrálna karta klientov s odpoveďami z dotazníka" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-6.webp" type="image/webp" /><img src="assets/img/projects/jk-6.jpg" alt="Automatický e-mail o predschválení kandidáta" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-7.webp" type="image/webp" /><img src="assets/img/projects/jk-7.jpg" alt="Výber termínu hovoru podľa voľných kapacít v kalendári" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-8.webp" type="image/webp" /><img src="assets/img/projects/jk-8.jpg" alt="Formulár obchodníka po hovore: výsledok, produkt, cena a splátky" loading="lazy" /></picture></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dmac__base" aria-hidden="true"><span></span></div>
+                  </div>
+                  <div class="slider__nav">
+                    <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
+                    <span class="slider__dots"></span>
+                    <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
+                  </div>
+                  <p class="mono gallery__cap">Web, dotazník, CRM, e-maily a kalendár v praxi</p>
+                </div>
+              </div>
+
+              <details class="reveal reveal--solo detail__block detail__more">
+                <summary>Zobraziť východisko a postup krok po kroku <span class="more__icon">+</span></summary>
+                <div class="detail__more-body">
+                  <p class="mono">Východisko</p>
+                  <p>Mať klienta, ktorý sa k vám vracia s ďalšími projektmi, je tá najlepšia spätná väzba. S týmto klientom už máme za sebou úspešné prepojenia v minulosti a tentoraz išlo o celý obchodný proces — od vytvorenia kompletnej webovej stránky až po pokročilé napojenie na CRM systémy a kalendáre.</p><p>Cieľom bolo vytvoriť hladký a bezchybný ekosystém, kde zákazník plynulo prechádza od prvého kliku na webe až po vystavenie faktúry, a firme ušetriť desiatky hodín manuálnej práce týždenne.</p>
+
+                <div class="detail__block">
+                  <p class="mono">Ako to funguje krok po kroku</p>
+                  <ol class="detail__steps">
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 01</p><h4>Webová stránka s interaktívnym formulárom</h4><p>Postavil som modernú webstránku s dotazníkom, ktorý slúži ako prvý filter pre potenciálnych klientov.</p><p>Všetky odpovede a dáta z formulára sa okamžite a bezpečne prenášajú priamo do monday.com CRM, kde s nimi obchodníci ďalej pracujú.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 02</p><h4>Inteligentný „semafor“ na kvalifikáciu leadov pomocou AI</h4><p><strong>Zelená:</strong> ak sú odpovede zákazníka vyhovujúce, systém ho automaticky presmeruje na výber termínu hovoru.</p><p><strong>Červená:</strong> ak klient kritériá nesplní, hovor si vybrať nemôže, ale dostane potvrdzujúci e-mail o zaznamenaní leadu.</p><p><strong>Poistka:</strong> všetky stavy v CRM je možné kedykoľvek manuálne zmeniť pre prípad, že by systém vyhodnotil odpovede nesprávne.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 03</p><h4>Automatizované plánovanie stretnutí cez Google Kalendár</h4><p>Zákazník si zo zobrazených možností vyberie vyhovujúci čas.</p><p>Systém inteligentne preverí voľné kapacity v Google kalendároch obchodníkov.</p><p>Vybranému predajcovi okamžite príde notifikácia o rezervovanom hovore a zákazník dostane potvrdzujúci e-mail spolu s oficiálnou pozvánkou do Google Meet.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 04</p><h4>Reporting po hovore a okamžitá fakturácia</h4><p>Obchodníci majú k dispozícii vlastný prehľadný dashboard. Po skončení hovoru vyplnia krátky formulár o výsledku rozhovoru a dohodnutých podmienkach.</p><p>Všetky dáta — vrátane dohodnutej ceny — sa automaticky zapíšu do monday.com, odkiaľ sa dá rovno vygenerovať a vystaviť faktúra.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 05</p><h4>Špeciálna funkcia pre splátky</h4><p>Ak si klient zvolí platbu na splátky, systém v monday.com automaticky vytvorí viacero stĺpcov s dátumami splatnosti podľa jednotlivých mesiacov a ku každej splátke vie priradiť príslušnú faktúru.</p></li>
+                  </ol>
+                </div>
+                </div>
+              </details>
+
+              <div class="reveal reveal--solo detail__result">
+                <p class="mono">Výsledok</p>
+                <p>Maximálna automatizácia biznis modelu, nulové riziko straty kontaktu a dokonalý prehľad vedenia o každom jednom obchode na jednom mieste.</p>
+              </div>
+
+              <div class="reveal reveal--solo detail__block">
+                <p class="mono">Použité nástroje</p>
+                <ul class="chips"><li>Webstránka</li><li>monday.com CRM</li><li>AI kvalifikácia</li><li>Google Calendar</li><li>Google Meet</li><li>E-mail notifikácie</li><li>Fakturácia</li></ul>
+              </div>
+
+              <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
+            </div>
           </article>
 
-          <article class="project reveal">
-            <div class="project__aside"><span class="project__num">03</span><time class="project__date" datetime="2026-08-28">28. 8. 2026</time></div>
-            <div class="project__main">
+          <article class="project">
+            <div class="project__aside reveal"><span class="project__num">03</span><time class="project__date" datetime="2026-08-28">28. 8. 2026</time></div>
+            <div class="project__main reveal">
               <p class="project__proof"><span class="live"><i></i>V prevádzke</span></p>
               <p class="mono">Účtovníctvo a financie</p>
               <h3>AI spracovanie faktúr a párovanie platieb</h3>
               <div class="flowline"><span>Gmail</span><i></i><span>AI / OCR</span><i></i><span>Bankové výpisy</span><i></i><span class="is-blue">Dashboard</span></div>
-              <button type="button" class="more" data-open="detail-2">Ako to funguje <span class="more__icon">+</span></button>
             </div>
-            <div class="project__side">
+            <div class="project__side reveal">
               <p>
                 Stovky faktúr mesačne sa prepisovali ručne. Systém ich teraz sám stiahne z Gmailu, AI vyčíta dodávateľa,
                 sumu, splatnosť aj VS a zapíše ich do dashboardu. Podľa sumy a VS z bankových výpisov ich označí ako zaplatené.
               </p>
               <p class="result"><i></i>Žiadne chyby pri prepisovaní a úplný prehľad o cashflow.</p>
             </div>
+            <div class="project__detail">
+              <a class="reveal reveal--solo detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
+
+              <details class="reveal reveal--solo detail__block detail__more">
+                <summary>Zobraziť problém a postup krok po kroku <span class="more__icon">+</span></summary>
+                <div class="detail__more-body">
+                  <p class="mono">Problém</p>
+                  <p>Predstavte si, že vám mesačne prídu stovky faktúr. Každú jednu musíte stiahnuť z Gmailu, prepísať údaje do systému, skontrolovať a na konci mesiaca manuálne prechádzať bankové výpisy, aby ste zistili, či bola uhradená.</p><p>Presne s týmto problémom za nami prišla firma. Navrhli sme a implementovali komplexný automatizovaný systém, ktorý celú túto rutinu vyriešil od A po Z.</p>
+
+                <div class="detail__block">
+                  <p class="mono">Ako to funguje krok po kroku</p>
+                  <ol class="detail__steps">
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 01</p><h4>Inteligentný filter</h4><p>Systém monitoruje firemný Gmail a na základe predmetu automaticky identifikuje a sťahuje prichádzajúce aj odchádzajúce faktúry.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 02</p><h4>AI vyčítanie dát</h4><p>Umelá inteligencia (OCR) bleskovo prečíta PDF a vytiahne z neho všetky dôležité údaje — dodávateľa, sumy, splatnosť, variabilný symbol — a uloží ich do dashboardu.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 03</p><h4>Custom dashboard</h4><p>Všetky extrahované dáta sa okamžite zapíšu do prehľadného dashboardu, ktorý sme pre firmu vytvorili na mieru. Firma tak má dokonalý prehľad o cashflow.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 04</p><h4>Automatické párovanie platieb</h4><p>Do platformy denne ťaháme bankové výpisy. Akonáhle systém nájde zhodu v sume a variabilnom symbole, faktúru automaticky označí ako zaplatenú.</p></li>
+                  </ol>
+                </div>
+                </div>
+              </details>
+
+              <div class="reveal reveal--solo detail__result">
+                <p class="mono">Výsledok</p>
+                <p>Firma eliminovala chyby pri ručnom prepisovaní, kompletne odbúrala manuálne dohľadávanie platieb v bankovníctve a ušetrila hodiny času, ktoré teraz môže investovať do rozvoja biznisu.</p>
+              </div>
+
+              <div class="reveal reveal--solo detail__block">
+                <p class="mono">Použité nástroje</p>
+                <ul class="chips"><li>Gmail</li><li>AI / OCR</li><li>Custom dashboard</li><li>Bankové výpisy</li><li>Párovanie platieb</li></ul>
+              </div>
+
+              <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
+            </div>
           </article>
 
-          <article class="project reveal">
-            <div class="project__aside"><span class="project__num">04</span><time class="project__date" datetime="2026-08-25">25. 8. 2026</time></div>
-            <div class="project__main">
+          <article class="project">
+            <div class="project__aside reveal"><span class="project__num">04</span><time class="project__date" datetime="2026-08-25">25. 8. 2026</time></div>
+            <div class="project__main reveal">
               <p class="project__proof"><span class="live"><i></i>V prevádzke</span></p>
               <p class="mono">Školstvo</p>
               <h3>Nový web pre SPŠ stavebnú a geodetickú v Košiciach</h3>
               <div class="flowline"><span>Redizajn</span><i></i><span>Admin</span><i></i><span class="is-blue">AI chatbot</span></div>
-              <button type="button" class="more" data-open="detail-4">Ako to funguje <span class="more__icon">+</span></button>
             </div>
-            <div class="project__side">
+            <div class="project__side reveal">
               <p>
                 Kompletne nový web školy, na ktorej študujem. Historický, no moderný a plne responzívny dizajn, zabezpečené
                 admin rozhranie na pridávanie obsahu a AI chatbot, ktorý odpovedá na otázky a odkáže na správnu podstránku.
               </p>
               <p class="result"><i></i>Škola si web spravuje sama a návštevníci nájdu odpoveď za pár sekúnd.</p>
             </div>
+            <div class="project__detail">
+              <a class="reveal reveal--solo detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
+
+              <div class="reveal reveal--solo gallery">
+                <div class="gallery__item gallery__item--mac">
+                  <div class="dmac">
+                    <div class="dmac__lid">
+                      <span class="dmac__notch" aria-hidden="true"></span>
+                      <div class="slider" data-slider aria-roledescription="galéria" aria-label="Pôvodný a nový web na počítači">
+                        <div class="slider__track">
+                          <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-old.webp" type="image/webp" /><img src="assets/img/projects/sps-old.jpg" alt="Pôvodný web školy pred redizajnom" loading="lazy" /></picture></div>
+                          <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-new-1.webp" type="image/webp" /><img src="assets/img/projects/sps-new-1.jpg" alt="Nový web: úvod s porovnaním starej a novej budovy" loading="lazy" /></picture></div>
+                          <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-new-2.webp" type="image/webp" /><img src="assets/img/projects/sps-new-2.jpg" alt="Nový web: študijné odbory" loading="lazy" /></picture></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="dmac__base" aria-hidden="true"><span></span></div>
+                  </div>
+                  <div class="slider__nav">
+                    <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
+                    <span class="slider__dots"></span>
+                    <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
+                  </div>
+                  <p class="mono gallery__cap">Pôvodný web → nový web na počítači</p>
+                </div>
+                <div class="gallery__item">
+                  <div class="dphone">
+                    <span class="dphone__island" aria-hidden="true"></span>
+                    <div class="slider" data-slider aria-roledescription="galéria" aria-label="Nový web a AI asistent na mobile">
+                      <div class="slider__track">
+                        <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-m-1.webp" type="image/webp" /><img src="assets/img/projects/sps-m-1.jpg" alt="Nový web na mobile: úvodná obrazovka" loading="lazy" /></picture></div>
+                        <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-m-2.webp" type="image/webp" /><img src="assets/img/projects/sps-m-2.jpg" alt="Nový web na mobile: kontakt a mapa" loading="lazy" /></picture></div>
+                        <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-m-3.webp" type="image/webp" /><img src="assets/img/projects/sps-m-3.jpg" alt="AI asistent školy odpovedá na otázku o odboroch" loading="lazy" /></picture></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slider__nav">
+                    <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
+                    <span class="slider__dots"></span>
+                    <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
+                  </div>
+                  <p class="mono gallery__cap">Mobil a AI asistent školy</p>
+                </div>
+              </div>
+
+              <details class="reveal reveal--solo detail__block detail__more">
+                <summary>Zobraziť príbeh a postup krok po kroku <span class="more__icon">+</span></summary>
+                <div class="detail__more-body">
+                  <p class="mono">Príbeh</p>
+                  <p>Ako študent som sa denne pozeral na náš školský web — až kým som nedostal šancu ho celý prerobiť. Študovať teóriu je jedna vec, ale aplikovať ju priamo v praxi pre vlastnú školu je úplne iný level.</p><p>Dostal som príležitosť navrhnúť a vytvoriť novú webovú stránku pre Strednú priemyselnú školu stavebnú a geodetickú, Lermontovova 1, v Košiciach, kde sám študujem.</p>
+
+                <div class="detail__block">
+                  <p class="mono">Ako to funguje krok po kroku</p>
+                  <ol class="detail__steps">
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 01</p><h4>Historický, no moderný dizajn</h4><p>Prehľadný dizajn, ktorý rešpektuje históriu školy a zároveň je moderný — pre súčasných študentov aj budúcich uchádzačov.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 02</p><h4>Rýchla a intuitívna navigácia</h4><p>Dôležité informácie sú na pár klikov, bez hľadania v neprehľadných menu.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 03</p><h4>Plne responzívne zobrazenie</h4><p>Web funguje rovnako dobre na mobile, tablete aj počítači.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 04</p><h4>Zabezpečené admin rozhranie</h4><p>Škola si môže pridávať obsah na stránku sama, bez potreby developera.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 05</p><h4>AI chatbot</h4><p>Jednoduchý AI chatbot odpovie na základné otázky, prípadne odkáže priamo na požadovanú podstránku.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 06</p><h4>Migrácia na existujúcu doménu</h4><p>Nová stránka bola presmerovaná na existujúcu doménu, kde bežal starý web.</p></li>
+                  </ol>
+                </div>
+                </div>
+              </details>
+
+              <div class="reveal reveal--solo detail__result">
+                <p class="mono">Výsledok</p>
+                <p>Najväčšou výzvou bolo skombinovať požiadavky vedenia školy s tým, čo od webu reálne očakávajú študenti a rodičia v každodennom živote. Výsledkom je moderný web, ktorý si škola spravuje sama.</p>
+              </div>
+
+              <div class="reveal reveal--solo detail__block">
+                <p class="mono">Použité nástroje</p>
+                <ul class="chips"><li>Webstránka</li><li>Responzívny dizajn</li><li>Admin rozhranie</li><li>AI chatbot</li><li>Migrácia domény</li></ul>
+              </div>
+
+              <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
+            </div>
           </article>
 
-          <article class="project reveal">
-            <div class="project__aside"><span class="project__num">05</span><time class="project__date" datetime="2026-05-10">10. 5. 2026</time></div>
-            <div class="project__main">
+          <article class="project">
+            <div class="project__aside reveal"><span class="project__num">05</span><time class="project__date" datetime="2026-05-10">10. 5. 2026</time></div>
+            <div class="project__main reveal">
               <p class="project__proof"><span class="live"><i></i>V prevádzke</span></p>
               <p class="mono">Onboarding klientov</p>
               <h3>AI chatbot vo WhatsAppe prepojený s CRM</h3>
               <div class="flowline"><span>WhatsApp +421</span><i></i><span>AI chatbot</span><i></i><span class="is-blue">CRM</span></div>
-              <button type="button" class="more" data-open="detail-3">Ako to funguje <span class="more__icon">+</span></button>
             </div>
-            <div class="project__side">
+            <div class="project__side reveal">
               <p>
                 Onboardingový bot na vlastnom čísle komunikuje prirodzenou rečou a vedie klienta k rezervácii konzultácie.
                 Celá história chatu sa ukladá ku klientovi v CRM, bot sám zapíše e-mail a v stĺpci „status-bot“ vyhodnotí jeho záujem.
               </p>
               <p class="result"><i></i>Čisté CRM, vytriedené leady a plný kalendár rezervácií.</p>
             </div>
+            <div class="project__detail">
+              <a class="reveal reveal--solo detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
+
+              <div class="reveal reveal--solo gallery">
+                <div class="gallery__item">
+                  <div class="dphone">
+                    <span class="dphone__island" aria-hidden="true"></span>
+                    <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky konverzácie vo WhatsAppe">
+                      <div class="slider__track">
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-chat-1.webp" type="image/webp" /><img src="assets/img/projects/wa-chat-1.jpg" alt="WhatsApp: klient píše, že chce investovať, bot odpovedá a ponúkne 9 otázok" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-chat-2.webp" type="image/webp" /><img src="assets/img/projects/wa-chat-2.jpg" alt="WhatsApp: bot reaguje na výber Chorvátska a pýta sa na časový horizont" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-chat-3.webp" type="image/webp" /><img src="assets/img/projects/wa-chat-3.jpg" alt="WhatsApp: bot sa pýta na rozpočet a ponúka rezerváciu konzultácie" loading="lazy" /></picture></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slider__nav">
+                    <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
+                    <span class="slider__dots"></span>
+                    <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
+                  </div>
+                  <p class="mono gallery__cap">Konverzácia s botom vo WhatsAppe</p>
+                </div>
+                <div class="gallery__item gallery__item--wide">
+                  <div class="dbrowser">
+                    <div class="dbrowser__bar" aria-hidden="true"><i></i><i></i><i></i><span>monday CRM</span></div>
+                    <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky z monday CRM">
+                      <div class="slider__track">
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-crm-board.webp" type="image/webp" /><img src="assets/img/projects/wa-crm-board.jpg" alt="monday CRM: tabuľka WhatsApp integrácie so stĺpcom Status - bot" loading="lazy" /></picture></div>
+                      <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-crm-updates.webp" type="image/webp" /><img src="assets/img/projects/wa-crm-updates.jpg" alt="monday CRM: celá história chatu uložená ku kontaktu" loading="lazy" /></picture></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="slider__nav">
+                    <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
+                    <span class="slider__dots"></span>
+                    <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
+                  </div>
+                  <p class="mono gallery__cap">Dáta z chatu v monday CRM</p>
+                </div>
+              </div>
+
+              <details class="reveal reveal--solo detail__block detail__more">
+                <summary>Zobraziť zadanie a postup krok po kroku <span class="more__icon">+</span></summary>
+                <div class="detail__more-body">
+                  <p class="mono">Zadanie</p>
+                  <p>Cieľom bolo vytvoriť onboardingového chatbota, ktorý funguje na vlastnom +421 čísle vo WhatsAppe a je plnohodnotným obchodným asistentom.</p><p>Informácie nemali zostávať uväznené v četovacej aplikácii. Podarilo sa vybudovať komplexný most medzi WhatsAppom a CRM platformou — dnes systém funguje úplne autonómne.</p>
+
+                <div class="detail__block">
+                  <p class="mono">Ako to funguje krok po kroku</p>
+                  <ol class="detail__steps">
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 01</p><h4>Inteligentná synchronizácia</h4><p>Celá história chatu sa v reálnom čase ukladá priamo ku klientovi do CRM na základe telefónneho čísla. Tím má dokonalý prehľad o každej interakcii bez toho, aby musel čokoľvek manuálne prepisovať.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 02</p><h4>Automatické vyhodnotenie</h4><p>Na základe analýzy konverzácie a vopred definovaných kritérií systém sám vyhodnocuje dôležitosť klienta. V stĺpci „status-bot“ okamžite vidno, kto je pripravený na obchod a komu treba venovať zvýšenú pozornosť.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 03</p><h4>Zber a zápis údajov</h4><p>Akonáhle klient v konverzácii uvedie svoj e-mail, systém ho okamžite identifikuje a zapíše do príslušného stĺpca v CRM.</p></li>
+                    <li class="reveal reveal--solo"><p class="mono blue-text">Krok 04</p><h4>Prirodzený flow</h4><p>Bot je nastavený tak, aby komunikoval ľudskou rečou — neformálne a priamo. Práve občasné vynechanie striktnej interpunkcie v rýchlych správach odbúrava bariéry a zvyšuje ochotu klientov pokračovať až k finálnemu cieľu: rezervácii konzultácie.</p></li>
+                  </ol>
+                </div>
+                </div>
+              </details>
+
+              <div class="reveal reveal--solo detail__result">
+                <p class="mono">Výsledok</p>
+                <p>Čisté CRM, vytriedené leady, plný kalendár rezervácií a pripravenosť na klienta z histórie chatu — bez manuálnej práce.</p>
+              </div>
+
+              <div class="reveal reveal--solo detail__block">
+                <p class="mono">Použité nástroje</p>
+                <ul class="chips"><li>WhatsApp Business</li><li>AI chatbot</li><li>CRM</li><li>Vyhodnotenie leadov</li><li>Rezervácie</li></ul>
+              </div>
+
+              <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
+            </div>
           </article>
         </div>
       </div>
     </section>
-
-    <!-- PROJECT DETAILS -->
-    <dialog class="detail" id="detail-1" aria-labelledby="detail-1-title">
-      <div class="detail__inner">
-        <div class="detail__top">
-          <span class="mono blue-text">Projekt 02 · Obchod a predaj</span>
-          <button type="button" class="detail__close" aria-label="Zavrieť">✕</button>
-        </div>
-        <h3 id="detail-1-title">Od novej webstránky až po plne automatizovaný obchodný proces v monday.com CRM</h3>
-        <div class="flowline"><span>Web dotazník</span><i></i><span>AI semafor</span><i></i><span>Kalendár</span><i></i><span class="is-blue">Monday CRM</span></div>
-
-        <dl class="detail__facts">
-          <div><dt class="mono">Dátum</dt><dd><time datetime="2026-09-26">26. 9. 2026</time></dd></div>
-          <div><dt class="mono">Autor</dt><dd>Filip Haraj</dd></div>
-          <div><dt class="mono">Moja rola</dt><dd>Návrh, vývoj a nasadenie</dd></div>
-          <div><dt class="mono">Stav</dt><dd><span class="live"><i></i>V prevádzke</span></dd></div>
-        </dl>
-        <a class="detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
-
-        <div class="gallery">
-          <div class="gallery__item gallery__item--mac">
-            <div class="dmac">
-              <div class="dmac__lid">
-                <span class="dmac__notch" aria-hidden="true"></span>
-                <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky webu, CRM a automatizácií">
-                  <div class="slider__track">
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-1.webp" type="image/webp" /><img src="assets/img/projects/jk-1.jpg" alt="Landing page s CTA na kvalifikačný dotazník" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-2.webp" type="image/webp" /><img src="assets/img/projects/jk-2.jpg" alt="Video a viackrokový kvalifikačný dotazník" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-3.webp" type="image/webp" /><img src="assets/img/projects/jk-3.jpg" alt="Sekcia Ako to funguje na webe" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-4.webp" type="image/webp" /><img src="assets/img/projects/jk-4.jpg" alt="Záverečná výzva na vyplnenie dotazníka" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-5.webp" type="image/webp" /><img src="assets/img/projects/jk-5.jpg" alt="monday CRM: centrálna karta klientov s odpoveďami z dotazníka" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-6.webp" type="image/webp" /><img src="assets/img/projects/jk-6.jpg" alt="Automatický e-mail o predschválení kandidáta" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-7.webp" type="image/webp" /><img src="assets/img/projects/jk-7.jpg" alt="Výber termínu hovoru podľa voľných kapacít v kalendári" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/jk-8.webp" type="image/webp" /><img src="assets/img/projects/jk-8.jpg" alt="Formulár obchodníka po hovore: výsledok, produkt, cena a splátky" loading="lazy" /></picture></div>
-                  </div>
-                </div>
-              </div>
-              <div class="dmac__base" aria-hidden="true"><span></span></div>
-            </div>
-            <div class="slider__nav">
-              <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
-              <span class="slider__dots"></span>
-              <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
-            </div>
-            <p class="mono gallery__cap">Web, dotazník, CRM, e-maily a kalendár v praxi</p>
-          </div>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Východisko</p>
-          <p>Mať klienta, ktorý sa k vám vracia s ďalšími projektmi, je tá najlepšia spätná väzba. S týmto klientom už máme za sebou úspešné prepojenia v minulosti a tentoraz išlo o celý obchodný proces — od vytvorenia kompletnej webovej stránky až po pokročilé napojenie na CRM systémy a kalendáre.</p><p>Cieľom bolo vytvoriť hladký a bezchybný ekosystém, kde zákazník plynulo prechádza od prvého kliku na webe až po vystavenie faktúry, a firme ušetriť desiatky hodín manuálnej práce týždenne.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Ako to funguje krok po kroku</p>
-          <ol class="detail__steps">
-            <li><p class="mono blue-text">Krok 01</p><h4>Webová stránka s interaktívnym formulárom</h4><p>Postavil som modernú webstránku s dotazníkom, ktorý slúži ako prvý filter pre potenciálnych klientov.</p><p>Všetky odpovede a dáta z formulára sa okamžite a bezpečne prenášajú priamo do monday.com CRM, kde s nimi obchodníci ďalej pracujú.</p></li>
-            <li><p class="mono blue-text">Krok 02</p><h4>Inteligentný „semafor“ na kvalifikáciu leadov pomocou AI</h4><p><strong>Zelená:</strong> ak sú odpovede zákazníka vyhovujúce, systém ho automaticky presmeruje na výber termínu hovoru.</p><p><strong>Červená:</strong> ak klient kritériá nesplní, hovor si vybrať nemôže, ale dostane potvrdzujúci e-mail o zaznamenaní leadu.</p><p><strong>Poistka:</strong> všetky stavy v CRM je možné kedykoľvek manuálne zmeniť pre prípad, že by systém vyhodnotil odpovede nesprávne.</p></li>
-            <li><p class="mono blue-text">Krok 03</p><h4>Automatizované plánovanie stretnutí cez Google Kalendár</h4><p>Zákazník si zo zobrazených možností vyberie vyhovujúci čas.</p><p>Systém inteligentne preverí voľné kapacity v Google kalendároch obchodníkov.</p><p>Vybranému predajcovi okamžite príde notifikácia o rezervovanom hovore a zákazník dostane potvrdzujúci e-mail spolu s oficiálnou pozvánkou do Google Meet.</p></li>
-            <li><p class="mono blue-text">Krok 04</p><h4>Reporting po hovore a okamžitá fakturácia</h4><p>Obchodníci majú k dispozícii vlastný prehľadný dashboard. Po skončení hovoru vyplnia krátky formulár o výsledku rozhovoru a dohodnutých podmienkach.</p><p>Všetky dáta — vrátane dohodnutej ceny — sa automaticky zapíšu do monday.com, odkiaľ sa dá rovno vygenerovať a vystaviť faktúra.</p></li>
-            <li><p class="mono blue-text">Krok 05</p><h4>Špeciálna funkcia pre splátky</h4><p>Ak si klient zvolí platbu na splátky, systém v monday.com automaticky vytvorí viacero stĺpcov s dátumami splatnosti podľa jednotlivých mesiacov a ku každej splátke vie priradiť príslušnú faktúru.</p></li>
-          </ol>
-        </div>
-
-        <div class="detail__result">
-          <p class="mono">Výsledok</p>
-          <p>Maximálna automatizácia biznis modelu, nulové riziko straty kontaktu a dokonalý prehľad vedenia o každom jednom obchode na jednom mieste.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Použité nástroje</p>
-          <ul class="chips"><li>Webstránka</li><li>monday.com CRM</li><li>AI kvalifikácia</li><li>Google Calendar</li><li>Google Meet</li><li>E-mail notifikácie</li><li>Fakturácia</li></ul>
-        </div>
-
-        <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
-      </div>
-    </dialog>
-    <dialog class="detail" id="detail-2" aria-labelledby="detail-2-title">
-      <div class="detail__inner">
-        <div class="detail__top">
-          <span class="mono blue-text">Projekt 03 · Účtovníctvo a financie</span>
-          <button type="button" class="detail__close" aria-label="Zavrieť">✕</button>
-        </div>
-        <h3 id="detail-2-title">AI spracovanie faktúr a automatické párovanie platieb</h3>
-        <div class="flowline"><span>Gmail</span><i></i><span>AI / OCR</span><i></i><span>Bankové výpisy</span><i></i><span class="is-blue">Dashboard</span></div>
-
-        <dl class="detail__facts">
-          <div><dt class="mono">Dátum</dt><dd><time datetime="2026-08-28">28. 8. 2026</time></dd></div>
-          <div><dt class="mono">Autor</dt><dd>Filip Haraj</dd></div>
-          <div><dt class="mono">Moja rola</dt><dd>Návrh, vývoj a nasadenie</dd></div>
-          <div><dt class="mono">Stav</dt><dd><span class="live"><i></i>V prevádzke</span></dd></div>
-        </dl>
-        <a class="detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
-
-        <div class="detail__block">
-          <p class="mono">Problém</p>
-          <p>Predstavte si, že vám mesačne prídu stovky faktúr. Každú jednu musíte stiahnuť z Gmailu, prepísať údaje do systému, skontrolovať a na konci mesiaca manuálne prechádzať bankové výpisy, aby ste zistili, či bola uhradená.</p><p>Presne s týmto problémom za nami prišla firma. Navrhli sme a implementovali komplexný automatizovaný systém, ktorý celú túto rutinu vyriešil od A po Z.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Ako to funguje krok po kroku</p>
-          <ol class="detail__steps">
-            <li><p class="mono blue-text">Krok 01</p><h4>Inteligentný filter</h4><p>Systém monitoruje firemný Gmail a na základe predmetu automaticky identifikuje a sťahuje prichádzajúce aj odchádzajúce faktúry.</p></li>
-            <li><p class="mono blue-text">Krok 02</p><h4>AI vyčítanie dát</h4><p>Umelá inteligencia (OCR) bleskovo prečíta PDF a vytiahne z neho všetky dôležité údaje — dodávateľa, sumy, splatnosť, variabilný symbol — a uloží ich do dashboardu.</p></li>
-            <li><p class="mono blue-text">Krok 03</p><h4>Custom dashboard</h4><p>Všetky extrahované dáta sa okamžite zapíšu do prehľadného dashboardu, ktorý sme pre firmu vytvorili na mieru. Firma tak má dokonalý prehľad o cashflow.</p></li>
-            <li><p class="mono blue-text">Krok 04</p><h4>Automatické párovanie platieb</h4><p>Do platformy denne ťaháme bankové výpisy. Akonáhle systém nájde zhodu v sume a variabilnom symbole, faktúru automaticky označí ako zaplatenú.</p></li>
-          </ol>
-        </div>
-
-        <div class="detail__result">
-          <p class="mono">Výsledok</p>
-          <p>Firma eliminovala chyby pri ručnom prepisovaní, kompletne odbúrala manuálne dohľadávanie platieb v bankovníctve a ušetrila hodiny času, ktoré teraz môže investovať do rozvoja biznisu.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Použité nástroje</p>
-          <ul class="chips"><li>Gmail</li><li>AI / OCR</li><li>Custom dashboard</li><li>Bankové výpisy</li><li>Párovanie platieb</li></ul>
-        </div>
-
-        <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
-      </div>
-    </dialog>
-    <dialog class="detail" id="detail-3" aria-labelledby="detail-3-title">
-      <div class="detail__inner">
-        <div class="detail__top">
-          <span class="mono blue-text">Projekt 05 · Onboarding klientov</span>
-          <button type="button" class="detail__close" aria-label="Zavrieť">✕</button>
-        </div>
-        <h3 id="detail-3-title">Keď sa WhatsApp stane najvýkonnejším členom vášho tímu</h3>
-        <div class="flowline"><span>WhatsApp +421</span><i></i><span>AI chatbot</span><i></i><span class="is-blue">CRM</span></div>
-
-        <dl class="detail__facts">
-          <div><dt class="mono">Dátum</dt><dd><time datetime="2026-05-10">10. 5. 2026</time></dd></div>
-          <div><dt class="mono">Autor</dt><dd>Filip Haraj</dd></div>
-          <div><dt class="mono">Moja rola</dt><dd>Návrh, vývoj a nasadenie</dd></div>
-          <div><dt class="mono">Stav</dt><dd><span class="live"><i></i>V prevádzke</span></dd></div>
-        </dl>
-        <a class="detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
-
-        <div class="gallery">
-          <div class="gallery__item">
-            <div class="dphone">
-              <span class="dphone__island" aria-hidden="true"></span>
-              <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky konverzácie vo WhatsAppe">
-                <div class="slider__track">
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-chat-1.webp" type="image/webp" /><img src="assets/img/projects/wa-chat-1.jpg" alt="WhatsApp: klient píše, že chce investovať, bot odpovedá a ponúkne 9 otázok" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-chat-2.webp" type="image/webp" /><img src="assets/img/projects/wa-chat-2.jpg" alt="WhatsApp: bot reaguje na výber Chorvátska a pýta sa na časový horizont" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-chat-3.webp" type="image/webp" /><img src="assets/img/projects/wa-chat-3.jpg" alt="WhatsApp: bot sa pýta na rozpočet a ponúka rezerváciu konzultácie" loading="lazy" /></picture></div>
-                </div>
-              </div>
-            </div>
-            <div class="slider__nav">
-              <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
-              <span class="slider__dots"></span>
-              <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
-            </div>
-            <p class="mono gallery__cap">Konverzácia s botom vo WhatsAppe</p>
-          </div>
-          <div class="gallery__item gallery__item--wide">
-            <div class="dbrowser">
-              <div class="dbrowser__bar" aria-hidden="true"><i></i><i></i><i></i><span>monday CRM</span></div>
-              <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky z monday CRM">
-                <div class="slider__track">
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-crm-board.webp" type="image/webp" /><img src="assets/img/projects/wa-crm-board.jpg" alt="monday CRM: tabuľka WhatsApp integrácie so stĺpcom Status - bot" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/wa-crm-updates.webp" type="image/webp" /><img src="assets/img/projects/wa-crm-updates.jpg" alt="monday CRM: celá história chatu uložená ku kontaktu" loading="lazy" /></picture></div>
-                </div>
-              </div>
-            </div>
-            <div class="slider__nav">
-              <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
-              <span class="slider__dots"></span>
-              <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
-            </div>
-            <p class="mono gallery__cap">Dáta z chatu v monday CRM</p>
-          </div>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Zadanie</p>
-          <p>Cieľom bolo vytvoriť onboardingového chatbota, ktorý funguje na vlastnom +421 čísle vo WhatsAppe a je plnohodnotným obchodným asistentom.</p><p>Informácie nemali zostávať uväznené v četovacej aplikácii. Podarilo sa vybudovať komplexný most medzi WhatsAppom a CRM platformou — dnes systém funguje úplne autonómne.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Ako to funguje krok po kroku</p>
-          <ol class="detail__steps">
-            <li><p class="mono blue-text">Krok 01</p><h4>Inteligentná synchronizácia</h4><p>Celá história chatu sa v reálnom čase ukladá priamo ku klientovi do CRM na základe telefónneho čísla. Tím má dokonalý prehľad o každej interakcii bez toho, aby musel čokoľvek manuálne prepisovať.</p></li>
-            <li><p class="mono blue-text">Krok 02</p><h4>Automatické vyhodnotenie</h4><p>Na základe analýzy konverzácie a vopred definovaných kritérií systém sám vyhodnocuje dôležitosť klienta. V stĺpci „status-bot“ okamžite vidno, kto je pripravený na obchod a komu treba venovať zvýšenú pozornosť.</p></li>
-            <li><p class="mono blue-text">Krok 03</p><h4>Zber a zápis údajov</h4><p>Akonáhle klient v konverzácii uvedie svoj e-mail, systém ho okamžite identifikuje a zapíše do príslušného stĺpca v CRM.</p></li>
-            <li><p class="mono blue-text">Krok 04</p><h4>Prirodzený flow</h4><p>Bot je nastavený tak, aby komunikoval ľudskou rečou — neformálne a priamo. Práve občasné vynechanie striktnej interpunkcie v rýchlych správach odbúrava bariéry a zvyšuje ochotu klientov pokračovať až k finálnemu cieľu: rezervácii konzultácie.</p></li>
-          </ol>
-        </div>
-
-        <div class="detail__result">
-          <p class="mono">Výsledok</p>
-          <p>Čisté CRM, vytriedené leady, plný kalendár rezervácií a pripravenosť na klienta z histórie chatu — bez manuálnej práce.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Použité nástroje</p>
-          <ul class="chips"><li>WhatsApp Business</li><li>AI chatbot</li><li>CRM</li><li>Vyhodnotenie leadov</li><li>Rezervácie</li></ul>
-        </div>
-
-        <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
-      </div>
-    </dialog>
-    <dialog class="detail" id="detail-4" aria-labelledby="detail-4-title">
-      <div class="detail__inner">
-        <div class="detail__top">
-          <span class="mono blue-text">Projekt 04 · Školstvo</span>
-          <button type="button" class="detail__close" aria-label="Zavrieť">✕</button>
-        </div>
-        <h3 id="detail-4-title">Nový web pre Strednú priemyselnú školu stavebnú a geodetickú v Košiciach</h3>
-        <div class="flowline"><span>Redizajn</span><i></i><span>Admin</span><i></i><span class="is-blue">AI chatbot</span></div>
-
-        <dl class="detail__facts">
-          <div><dt class="mono">Dátum</dt><dd><time datetime="2026-08-25">25. 8. 2026</time></dd></div>
-          <div><dt class="mono">Autor</dt><dd>Filip Haraj</dd></div>
-          <div><dt class="mono">Moja rola</dt><dd>Návrh, vývoj a nasadenie</dd></div>
-          <div><dt class="mono">Stav</dt><dd><span class="live"><i></i>V prevádzke</span></dd></div>
-        </dl>
-        <a class="detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
-
-        <div class="gallery">
-          <div class="gallery__item gallery__item--mac">
-            <div class="dmac">
-              <div class="dmac__lid">
-                <span class="dmac__notch" aria-hidden="true"></span>
-                <div class="slider" data-slider aria-roledescription="galéria" aria-label="Pôvodný a nový web na počítači">
-                  <div class="slider__track">
-                    <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-old.webp" type="image/webp" /><img src="assets/img/projects/sps-old.jpg" alt="Pôvodný web školy pred redizajnom" loading="lazy" /></picture></div>
-                    <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-new-1.webp" type="image/webp" /><img src="assets/img/projects/sps-new-1.jpg" alt="Nový web: úvod s porovnaním starej a novej budovy" loading="lazy" /></picture></div>
-                    <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-new-2.webp" type="image/webp" /><img src="assets/img/projects/sps-new-2.jpg" alt="Nový web: študijné odbory" loading="lazy" /></picture></div>
-                  </div>
-                </div>
-              </div>
-              <div class="dmac__base" aria-hidden="true"><span></span></div>
-            </div>
-            <div class="slider__nav">
-              <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
-              <span class="slider__dots"></span>
-              <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
-            </div>
-            <p class="mono gallery__cap">Pôvodný web → nový web na počítači</p>
-          </div>
-          <div class="gallery__item">
-            <div class="dphone">
-              <span class="dphone__island" aria-hidden="true"></span>
-              <div class="slider" data-slider aria-roledescription="galéria" aria-label="Nový web a AI asistent na mobile">
-                <div class="slider__track">
-                  <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-m-1.webp" type="image/webp" /><img src="assets/img/projects/sps-m-1.jpg" alt="Nový web na mobile: úvodná obrazovka" loading="lazy" /></picture></div>
-                  <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-m-2.webp" type="image/webp" /><img src="assets/img/projects/sps-m-2.jpg" alt="Nový web na mobile: kontakt a mapa" loading="lazy" /></picture></div>
-                  <div class="slider__slide"><picture><source srcset="assets/img/projects/sps-m-3.webp" type="image/webp" /><img src="assets/img/projects/sps-m-3.jpg" alt="AI asistent školy odpovedá na otázku o odboroch" loading="lazy" /></picture></div>
-                </div>
-              </div>
-            </div>
-            <div class="slider__nav">
-              <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
-              <span class="slider__dots"></span>
-              <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
-            </div>
-            <p class="mono gallery__cap">Mobil a AI asistent školy</p>
-          </div>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Príbeh</p>
-          <p>Ako študent som sa denne pozeral na náš školský web — až kým som nedostal šancu ho celý prerobiť. Študovať teóriu je jedna vec, ale aplikovať ju priamo v praxi pre vlastnú školu je úplne iný level.</p><p>Dostal som príležitosť navrhnúť a vytvoriť novú webovú stránku pre Strednú priemyselnú školu stavebnú a geodetickú, Lermontovova 1, v Košiciach, kde sám študujem.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Ako to funguje krok po kroku</p>
-          <ol class="detail__steps">
-            <li><p class="mono blue-text">Krok 01</p><h4>Historický, no moderný dizajn</h4><p>Prehľadný dizajn, ktorý rešpektuje históriu školy a zároveň je moderný — pre súčasných študentov aj budúcich uchádzačov.</p></li>
-            <li><p class="mono blue-text">Krok 02</p><h4>Rýchla a intuitívna navigácia</h4><p>Dôležité informácie sú na pár klikov, bez hľadania v neprehľadných menu.</p></li>
-            <li><p class="mono blue-text">Krok 03</p><h4>Plne responzívne zobrazenie</h4><p>Web funguje rovnako dobre na mobile, tablete aj počítači.</p></li>
-            <li><p class="mono blue-text">Krok 04</p><h4>Zabezpečené admin rozhranie</h4><p>Škola si môže pridávať obsah na stránku sama, bez potreby developera.</p></li>
-            <li><p class="mono blue-text">Krok 05</p><h4>AI chatbot</h4><p>Jednoduchý AI chatbot odpovie na základné otázky, prípadne odkáže priamo na požadovanú podstránku.</p></li>
-            <li><p class="mono blue-text">Krok 06</p><h4>Migrácia na existujúcu doménu</h4><p>Nová stránka bola presmerovaná na existujúcu doménu, kde bežal starý web.</p></li>
-          </ol>
-        </div>
-
-        <div class="detail__result">
-          <p class="mono">Výsledok</p>
-          <p>Najväčšou výzvou bolo skombinovať požiadavky vedenia školy s tým, čo od webu reálne očakávajú študenti a rodičia v každodennom živote. Výsledkom je moderný web, ktorý si škola spravuje sama.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Použité nástroje</p>
-          <ul class="chips"><li>Webstránka</li><li>Responzívny dizajn</li><li>Admin rozhranie</li><li>AI chatbot</li><li>Migrácia domény</li></ul>
-        </div>
-
-        <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
-      </div>
-    </dialog>
-
-    <dialog class="detail" id="detail-5" aria-labelledby="detail-5-title">
-      <div class="detail__inner">
-        <div class="detail__top">
-          <span class="mono blue-text">Projekt 01 · Brány, ploty a zábradlia</span>
-          <button type="button" class="detail__close" aria-label="Zavrieť">✕</button>
-        </div>
-        <h3 id="detail-5-title">Chatbot a konfigurátor v jednom: rýchla cesta k bránam, plotom a zábradliam s orientačnou cenou</h3>
-        <div class="flowline"><span>Web chatbot</span><i></i><span>Konfigurátor</span><i></i><span>Cenová kalkulačka</span><i></i><span class="is-blue">E-mail dopyt</span></div>
-
-        <dl class="detail__facts">
-          <div><dt class="mono">Dátum</dt><dd><time datetime="2026-10-01">1. 10. 2026</time></dd></div>
-          <div><dt class="mono">Autor</dt><dd>Filip Haraj</dd></div>
-          <div><dt class="mono">Moja rola</dt><dd>Návrh, vývoj a nasadenie</dd></div>
-          <div><dt class="mono">Stav</dt><dd><span class="live"><i></i>V prevádzke</span></dd></div>
-        </dl>
-        <a class="detail__source" href="https://www.linkedin.com/in/filip-haraj-3b7b89389/recent-activity/all/" target="_blank" rel="noopener">Tento projekt som zverejnil na LinkedIne ↗</a>
-
-        <div class="gallery">
-          <div class="gallery__item">
-            <div class="dphone dphone--wide">
-              <span class="dphone__island" aria-hidden="true"></span>
-              <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky chatbota a konfigurátora">
-                <div class="slider__track">
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-chat-1.webp" type="image/webp" /><img src="assets/img/projects/kp-chat-1.jpg" alt="Chatbot VITO víta zákazníka a ponúka výber produktov" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-chat-2.webp" type="image/webp" /><img src="assets/img/projects/kp-chat-2.jpg" alt="Výber vzoru výplne brány s obrázkami" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-chat-3.webp" type="image/webp" /><img src="assets/img/projects/kp-chat-3.jpg" alt="Výber farby z ponuky RAL odtieňov" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-chat-4.webp" type="image/webp" /><img src="assets/img/projects/kp-chat-4.jpg" alt="Zadanie rozmerov stavebného otvoru" loading="lazy" /></picture></div>
-                </div>
-              </div>
-            </div>
-            <div class="slider__nav">
-              <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
-              <span class="slider__dots"></span>
-              <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
-            </div>
-            <p class="mono gallery__cap">Konfigurácia v chatbote</p>
-          </div>
-          <div class="gallery__item gallery__item--wide gallery__item--mail">
-            <div class="dbrowser dbrowser--mail">
-              <div class="dbrowser__bar" aria-hidden="true"><i></i><i></i><i></i><span>Doručená pošta · Nový dopyt</span></div>
-              <div class="slider" data-slider aria-roledescription="galéria" aria-label="Ukážky e-mailu s dopytom">
-                <div class="slider__track">
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-mail-1.webp" type="image/webp" /><img src="assets/img/projects/kp-mail-1.jpg" alt="E-mail s novým dopytom: kontaktné údaje a detaily projektu" loading="lazy" /></picture></div>
-                <div class="slider__slide"><picture><source srcset="assets/img/projects/kp-mail-2.webp" type="image/webp" /><img src="assets/img/projects/kp-mail-2.jpg" alt="E-mail s orientačnou cenou a priebehom konverzácie" loading="lazy" /></picture></div>
-                </div>
-              </div>
-            </div>
-            <div class="slider__nav">
-              <button type="button" class="slider__btn" data-dir="-1" aria-label="Predchádzajúca">←</button>
-              <span class="slider__dots"></span>
-              <button type="button" class="slider__btn" data-dir="1" aria-label="Ďalšia">→</button>
-            </div>
-            <p class="mono gallery__cap">Dopyt, ktorý príde firme do e-mailu</p>
-          </div>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Zadanie</p>
-          <p>Mám za sebou vývoj interaktívneho chatbota, ktorý funguje ako kompletný sprievodca a konfigurátor pre exteriérové prvky — brány, ploty, prístrešky či garážové brány.</p><p>Spojili sme silu chatbota a cenovej kalkulačky do jedného plynulého zážitku, aby sme zákazníkom uľahčili výber a predajcom priniesli pripravené obchody.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Ako to funguje krok po kroku</p>
-          <ol class="detail__steps">
-            <li><p class="mono blue-text">Krok 01</p><h4>Interaktívna vyklikávačka</h4><p>Klient si postupne zvolí produkt — brány, ploty, zábradlia, prístrešky či garážové brány.</p><p>Následne vyberie preferovaný vzor výplne, farbu, prípadne doplnky a zadá rozmery. Všetko pomocou tlačidiel a obrázkov, bez zložitého písania.</p></li>
-            <li><p class="mono blue-text">Krok 02</p><h4>Okamžitá orientačná cena</h4><p>Hneď na konci konfigurácie chatbot zákazníkovi zobrazí predbežnú cenovú ponuku. Žiadne zbytočné čakanie na odpoveď.</p></li>
-            <li><p class="mono blue-text">Krok 03</p><h4>Kompletný dopyt do e-mailu</h4><p>Firma okamžite dostane e-mail s detailnou špecifikáciou potrieb klienta — kontaktné údaje, produkt, vzor, rozmery, materiál, farbu aj orientačnú cenu.</p><p>Súčasťou e-mailu je celá história chatu, takže obchodník hneď vie, čo klient riešil.</p></li>
-          </ol>
-        </div>
-
-        <div class="detail__result">
-          <p class="mono">Hlavné benefity</p>
-          <p><strong>Pre zákazníka:</strong> okamžitá orientačná cena 24/7 a maximálne prehľadný výber bez frustrácie z hľadania.</p>
-          <p><strong>Pre firmu:</strong> kvalifikované a presné dopyty priamo do schránky — s jasnými rozmermi, farbami a vzormi pripravenými na tvorbu finálnej ponuky.</p>
-        </div>
-
-        <div class="detail__block">
-          <p class="mono">Použité nástroje</p>
-          <ul class="chips"><li>Web chatbot</li><li>Konfigurátor</li><li>Cenová kalkulačka</li><li>E-mail notifikácie</li><li>GDPR súhlas</li></ul>
-        </div>
-
-        <a href="#kontakt" class="btn detail__cta">Chcem niečo podobné <span class="arrow">→</span></a>
-      </div>
-    </dialog>
 
     <!-- PROCESS -->
     <section class="section" id="proces">

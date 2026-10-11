@@ -18,8 +18,9 @@ const observer = new IntersectionObserver(
 );
 document.querySelectorAll(".reveal").forEach((el) => {
   // Stagger siblings (cards, steps) so they appear one after another
+  // (.reveal--solo blocks appear on their own as you scroll, without a stagger delay)
   const siblings = [...el.parentElement.children].filter((c) => c.classList.contains("reveal"));
-  el.style.transitionDelay = `${siblings.indexOf(el) * 0.1}s`;
+  if (!el.classList.contains("reveal--solo")) el.style.transitionDelay = `${siblings.indexOf(el) * 0.1}s`;
   observer.observe(el);
 });
 
@@ -110,26 +111,6 @@ form.addEventListener("submit", async (e) => {
   } finally {
     button.disabled = false;
   }
-});
-
-// ---------- Project detail panels ----------
-const openDetail = (dialog) => {
-  dialog.showModal();
-  document.body.classList.add("has-dialog");
-  dialog.scrollTop = 0;
-};
-document.querySelectorAll("[data-open]").forEach((btn) =>
-  btn.addEventListener("click", () => openDetail(document.getElementById(btn.dataset.open)))
-);
-document.querySelectorAll(".detail").forEach((dialog) => {
-  dialog.addEventListener("close", () => document.body.classList.remove("has-dialog"));
-  dialog.querySelector(".detail__close").addEventListener("click", () => dialog.close());
-  // Close when clicking the dimmed backdrop
-  dialog.addEventListener("click", (e) => {
-    if (e.target === dialog) dialog.close();
-  });
-  // "Chcem niečo podobné" closes the panel and scrolls to contact
-  dialog.querySelector(".detail__cta").addEventListener("click", () => dialog.close());
 });
 
 // ---------- Hero phone: rotates to the right while scrolling ----------
@@ -234,64 +215,107 @@ if (stack) {
   }, 1000);
 }
 
-// ---------- Interactive render (FIG section) ----------
-const scene = document.getElementById("scene");
-if (scene) {
-  const tilt = scene.querySelector(".scene__tilt");
+// ---------- MacBook: lid opens with scroll, then a sample automation runs on screen ----------
+const mbwrap = document.getElementById("mbwrap");
+if (mbwrap) {
+  const mb = document.getElementById("mb");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const ease = (x) => 1 - Math.pow(1 - x, 3);
+  let open = 0;
 
-  // 3D tilt + glare + parallax that follow the mouse
-  if (!reduce && window.matchMedia("(hover: hover)").matches) {
-    scene.addEventListener("pointermove", (e) => {
-      const r = tilt.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5; // -0.5 … 0.5
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      scene.classList.add("is-hover");
-      tilt.style.setProperty("--ry", `${x * 8}deg`);
-      tilt.style.setProperty("--rx", `${-y * 8}deg`);
-      tilt.style.setProperty("--mx", (x * 2).toFixed(3));
-      tilt.style.setProperty("--my", (y * 2).toFixed(3));
-      tilt.style.setProperty("--gx", `${(x + 0.5) * 100}%`);
-      tilt.style.setProperty("--gy", `${(y + 0.5) * 100}%`);
-    });
-    scene.addEventListener("pointerleave", () => {
-      scene.classList.remove("is-hover");
-      ["--rx", "--ry", "--mx", "--my"].forEach((v) => tilt.style.removeProperty(v));
-    });
-  }
-
-  // Gentle vertical parallax while scrolling past the image
-  if (!reduce) {
-    let queued = false;
-    const onParallax = () => {
-      const r = tilt.getBoundingClientRect();
-      const progress = (r.top + r.height / 2 - window.innerHeight / 2) / window.innerHeight; // ~ -1 … 1
-      tilt.style.setProperty("--sy", `${Math.max(-1, Math.min(1, progress)) * 24}px`);
-      queued = false;
-    };
-    onParallax();
-    window.addEventListener("scroll", () => {
-      if (!queued) { queued = true; requestAnimationFrame(onParallax); }
-    }, { passive: true });
-  }
-
-  // Tags pop up one after another along the cable, like events in a pipeline
-  const tags = [...scene.querySelectorAll(".scene__tag")];
-  let current = 0;
-  let timer;
-  const step = () => {
-    const tag = tags[current];
-    tag.classList.add("is-on");
-    setTimeout(() => tag.classList.remove("is-on"), 2600);
-    current = (current + 1) % tags.length;
+  const onLid = () => {
+    const r = mbwrap.getBoundingClientRect();
+    // 0 when the stage pins to the top, 1 after ~55 % of the pinned scroll distance
+    const progress = Math.min(Math.max(-r.top / ((r.height - window.innerHeight) * 0.55), 0), 1);
+    open = reduce ? 1 : ease(progress);
+    mb.style.setProperty("--open", open.toFixed(4));
+    mbwrap.style.setProperty("--open", open.toFixed(4));
+    if (open > 0.97) startApp(); else if (open < 0.8) stopApp();
   };
-  new IntersectionObserver(([entry]) => {
-    clearInterval(timer);
-    if (entry.isIntersecting) {
-      step();
-      timer = setInterval(step, 1300);
-    }
-  }, { threshold: 0.3 }).observe(scene);
+
+  const invoices = [
+    { sup: "Stavmat s.r.o.", sum: "1 240,00 €", due: "24. 10. 2026", vs: "2026104" },
+    { sup: "DrevoTrade s.r.o.", sum: "3 870,50 €", due: "30. 10. 2026", vs: "1100482" },
+    { sup: "Kancel Pro a.s.", sum: "212,30 €", due: "18. 10. 2026", vs: "5520193" },
+    { sup: "Elektro Varga", sum: "945,00 €", due: "2. 11. 2026", vs: "8810027" },
+  ];
+  const app = document.getElementById("app");
+  const nodes = [...app.querySelectorAll("[data-node]")];
+  const links = [...app.querySelectorAll("[data-link]")];
+  const fields = [...app.querySelectorAll("[data-field]")];
+  const rows = document.getElementById("appRows");
+  const toast = document.getElementById("appToast");
+  const saved = document.getElementById("appSaved");
+  let timers = [];
+  let running = false;
+  let index = 0;
+  let minutes = 160;
+
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const activate = (n) => nodes.forEach((node, i) => {
+    node.classList.toggle("is-active", i === n);
+    node.classList.toggle("is-done", i < n);
+  });
+  const run = (l) => { links[l].classList.remove("is-run"); void links[l].offsetWidth; links[l].classList.add("is-run"); };
+  const type = (el, text, start) => {
+    at(start, () => el.classList.add("is-typing"));
+    [...text].forEach((_, i) => at(start + i * 35, () => { el.textContent = text.slice(0, i + 1); }));
+    at(start + text.length * 35 + 120, () => el.classList.remove("is-typing"));
+    return start + text.length * 35 + 160;
+  };
+
+  const cycle = () => {
+    const inv = invoices[index++ % invoices.length];
+    fields.forEach((f) => { f.textContent = ""; });
+    toast.classList.remove("is-on");
+    activate(0);
+    at(700, () => run(0));
+    at(1500, () => activate(1));
+    let t = 1700;
+    fields.forEach((f) => { t = type(f, inv[f.dataset.field], t); });
+    at(t + 200, () => run(1));
+    let row;
+    at(t + 1000, () => {
+      activate(2);
+      row = document.createElement("li");
+      row.className = "is-new";
+      row.innerHTML = `<span>${inv.sup}</span><span>${inv.sum}</span><em>Čaká na platbu</em>`;
+      rows.prepend(row);
+      while (rows.children.length > 4) rows.lastElementChild.remove();
+    });
+    at(t + 2000, () => run(2));
+    at(t + 2800, () => {
+      activate(3);
+      const em = row.querySelector("em");
+      em.textContent = "Zaplatená";
+      em.classList.add("is-paid");
+      row.classList.remove("is-new");
+      toast.classList.add("is-on");
+      minutes += 12;
+      saved.textContent = `${Math.floor(minutes / 60)} h ${minutes % 60} min`;
+    });
+    at(t + 4600, () => { activate(4); toast.classList.remove("is-on"); });
+    at(t + 5200, cycle);
+  };
+
+  function startApp() {
+    if (running) return;
+    running = true;
+    cycle();
+  }
+  function stopApp() {
+    if (!running) return;
+    running = false;
+    timers.forEach(clearTimeout);
+    timers = [];
+  }
+
+  let queued = false;
+  onLid();
+  window.addEventListener("scroll", () => {
+    if (!queued) { queued = true; requestAnimationFrame(() => { onLid(); queued = false; }); }
+  }, { passive: true });
+  window.addEventListener("resize", onLid);
 }
 
 // ---------- Project screenshot sliders ----------
