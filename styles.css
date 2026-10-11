@@ -14,7 +14,8 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; overflow-x: clip; }
+/* No root scroll-behavior: smooth – on iPhone (WebKit) it turned the browser's own scroll corrections into visible jumps. Menu links scroll smoothly via main.js instead. */
+html { overflow-x: clip; }
 body {
   margin: 0;
   background: var(--bg);

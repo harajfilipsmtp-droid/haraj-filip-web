@@ -4,6 +4,17 @@ const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > 1
 onScroll();
 window.addEventListener("scroll", onScroll, { passive: true });
 
+// Smooth scrolling only for in-page links (menu, buttons), not for the whole page
+document.addEventListener("click", (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  const target = link && link.getAttribute("href").length > 1 && document.querySelector(link.getAttribute("href"));
+  if (!target) return;
+  e.preventDefault();
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  history.pushState(null, "", link.getAttribute("href"));
+});
+
 // Fade in elements when they come into view
 const observer = new IntersectionObserver(
   (entries) => {
