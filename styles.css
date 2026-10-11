@@ -550,7 +550,6 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
 .detail__steps strong { color: var(--ink); }
 .detail__result { padding: 26px; border: 1.5px solid var(--ink); border-radius: 10px; background: #fff; box-shadow: 5px 5px 0 0 var(--blue); display: grid; gap: 10px; }
 .detail__result p:not(.mono) { font-size: 1.1rem; font-weight: 500; }
-.project__detail .chips { margin-top: 0; }
 .detail__cta { justify-self: start; }
 
 
