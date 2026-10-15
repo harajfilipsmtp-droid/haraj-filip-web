@@ -11,7 +11,14 @@ document.addEventListener("click", (e) => {
   if (!target) return;
   e.preventDefault();
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  const go = () => target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  // From inside a project panel: close it first (it hands focus back to its button), then scroll
+  const dialog = link.closest("dialog");
+  if (dialog) {
+    dialog.close();
+    document.body.classList.remove("has-dialog");
+    requestAnimationFrame(() => requestAnimationFrame(go));
+  } else go();
   history.pushState(null, "", link.getAttribute("href"));
 });
 
@@ -127,6 +134,25 @@ form.addEventListener("submit", async (e) => {
   } finally {
     button.disabled = false;
   }
+});
+
+// ---------- Project detail panels ----------
+const openDetail = (dialog) => {
+  dialog.showModal();
+  document.body.classList.add("has-dialog");
+  dialog.scrollTop = 0;
+};
+document.querySelectorAll("[data-open]").forEach((btn) =>
+  btn.addEventListener("click", () => openDetail(document.getElementById(btn.dataset.open)))
+);
+document.querySelectorAll(".detail").forEach((dialog) => {
+  dialog.addEventListener("close", () => document.body.classList.remove("has-dialog"));
+  dialog.querySelector(".detail__close").addEventListener("click", () => dialog.close());
+  // Close when clicking the dimmed backdrop
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  // "Chcem niečo podobné" closes the panel and scrolls to contact (handled by the in-page link handler above)
 });
 
 // ---------- Hero phone: rotates to the right while scrolling ----------
