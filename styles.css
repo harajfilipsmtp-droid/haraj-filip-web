@@ -227,7 +227,6 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
 .chips li { padding: 6px 10px; background: var(--bg-2); border-radius: 3px; font-family: var(--mono); font-size: 0.78rem; }
 
 /* MacBook that opens on scroll (sticky stage inside a tall wrapper) */
-/* svh, not vh: on phones vh changes while the address bar hides, which made the page jump */
 .mbwrap { position: relative; height: 260vh; height: 260svh; }
 .mbwrap__sticky {
   position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden;
@@ -235,14 +234,22 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
   background: radial-gradient(60% 55% at 50% 58%, #f7f6f2, var(--bg) 70%);
 }
 .mbwrap__label { margin: 0; opacity: calc(var(--open, 0) * 1.4 - 0.2); }
-.mb__rig { will-change: transform; }
+
+/* Midnight MacBook Air 15", built to the real proportions: 340 x 238 x 11.5 mm */
 .mb {
-  --w: min(860px, 86vw, (100vh - 200px) * 0.98);
-  --w: min(860px, 86vw, (100svh - 200px) * 0.98);
-  --h: calc(var(--w) * 0.65);
-  --d: calc(var(--h) * 0.98);
-  --t: calc(var(--w) * 0.016); /* base thickness */
-  width: var(--w); height: calc(var(--h) + var(--d) * 0.24); margin-top: calc(var(--w) * 0.07);
+  /* 76vw, not the full width: the deck tilts toward the viewer, so it renders ~25 % wider than --w */
+  --w: min(860px, 76vw, (100vh - 200px) * 0.98);
+  --w: min(860px, 76vw, (100svh - 200px) * 0.98);
+  --h: calc(var(--w) * 0.685);  /* lid height */
+  --d: calc(var(--w) * 0.70);   /* deck depth */
+  --t: calc(var(--w) * 0.021);  /* thickness of the base */
+  --r: calc(var(--w) * 0.03);   /* outer corner radius */
+  --m-dark: #151a22;
+  --m-mid: #232b37;
+  --m-light: #3b4653;
+  --m-chamfer: #8a95a5;         /* diamond-cut edge that catches the light */
+  width: var(--w); height: calc(var(--h) + var(--d) * 0.24);
+  margin-top: calc(var(--w) * 0.07);
   perspective: calc(var(--w) * 3.4); perspective-origin: 50% 40%;
   /* Closed laptop sits lower and smaller; it rises to center as it opens */
   transform: translateY(calc((1 - var(--open, 0)) * var(--h) * -0.35)) scale(calc(0.84 + var(--open, 0) * 0.16));
@@ -252,79 +259,103 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
   transform-origin: 50% 100% calc(var(--d) * 0.5); /* turn around the middle of the base, not the hinge */
   /* Turns from a three-quarter view to straight-on while opening */
   transform: rotateX(-13deg) rotateY(calc((1 - var(--open, 0)) * var(--turn, -16deg)));
+  will-change: transform;
 }
 .mb__lid {
   position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 50% 100%;
-  /* --open 0 → lid lies closed just above the deck, 1 → open and tilted slightly back */
-  transform: translateY(calc(var(--w) * -0.005)) rotateX(calc(-90deg + var(--open, 0) * 100deg));
+  /* --open 0 -> lid lies closed just above the deck, 1 -> open and tilted slightly back */
+  transform: translateY(calc(var(--w) * -0.004)) rotateX(calc(-90deg + var(--open, 0) * 101deg));
 }
-.mb__face, .mb__back { position: absolute; inset: 0; border-radius: calc(var(--w) * 0.026) calc(var(--w) * 0.026) calc(var(--w) * 0.008) calc(var(--w) * 0.008); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-/* iPhone (WebKit) ignores backface-visibility for animated layers inside the screen, so the closed lid showed
-   the display instead of the aluminium back. Hide the screen side until the lid is actually lifted. */
-.mb__face { opacity: clamp(0, (var(--open, 0) - 0.12) * 25, 1); }
-/* Black glass bezel with the thin aluminium rim around it */
+.mb__face, .mb__back {
+  position: absolute; inset: 0;
+  border-radius: var(--r) var(--r) calc(var(--w) * 0.007) calc(var(--w) * 0.007);
+  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+}
+/* Front of the lid: one sheet of black glass inside a hairline aluminium rim */
 .mb__face {
-  background: #050506; overflow: hidden;
-  box-shadow: 0 0 0 calc(var(--w) * 0.0035) #c3c6cc, 0 0 0 calc(var(--w) * 0.005) #8e9197, inset 0 0 0 1px #1d1d21;
+  background: #07080b; overflow: hidden;
+  box-shadow: 0 0 0 calc(var(--w) * 0.0024) #414b58, 0 0 0 calc(var(--w) * 0.0042) #1a202a,
+              0 calc(var(--w) * 0.004) calc(var(--w) * 0.02) rgba(5, 7, 10, 0.5);
+  /* iPhone ignores backface-visibility here, so the screen stays hidden until the lid lifts */
+  opacity: clamp(0, (var(--open, 0) - 0.12) * 25, 1);
 }
+/* Back of the lid: anodised midnight aluminium lit from the upper left */
 .mb__back {
   transform: rotateY(180deg);
   background:
-    radial-gradient(70% 90% at 30% 20%, rgba(255, 255, 255, 0.55), transparent 60%),
-    linear-gradient(165deg, #eceef1, #cfd2d7 55%, #b9bcc2);
-  box-shadow: inset 0 0 0 1px #aeb1b7, inset 0 calc(var(--w) * 0.004) 0 rgba(255, 255, 255, 0.7);
+    radial-gradient(75% 60% at 26% 12%, rgba(255, 255, 255, 0.13), transparent 62%),
+    linear-gradient(157deg, var(--m-light), var(--m-mid) 46%, var(--m-dark));
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+              inset 0 calc(var(--w) * 0.0022) 0 rgba(255, 255, 255, 0.16);
 }
 .mb__screen, .mb__off, .mb__glare {
-  position: absolute; left: 2%; right: 2%; top: 3%; bottom: 3.2%; border-radius: calc(var(--w) * 0.006);
+  position: absolute; left: 1.9%; right: 1.9%; top: 2.5%; bottom: 3.6%;
+  border-radius: calc(var(--w) * 0.013);
 }
 .mb__screen { overflow: hidden; background: #f4f4f1; container-type: inline-size; }
-.mb__off { background: radial-gradient(120% 90% at 30% 0%, #16171b, #030304 60%); opacity: calc(1 - (var(--open, 0) - 0.72) * 4); pointer-events: none; }
-.mb__glare { background: linear-gradient(118deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 32%, transparent 33%); pointer-events: none; }
-.mb .dmac__notch { z-index: 3; width: 13%; height: 5.2%; border-radius: 0 0 calc(var(--w) * 0.01) calc(var(--w) * 0.01); background: #050506; }
-/* Keyboard deck: aluminium plus a detailed SVG keyboard, speakers and trackpad */
-.mb__deck {
-  position: absolute; top: 100%; left: 0; width: 100%; height: var(--d); transform-origin: 50% 0; transform: rotateX(90deg);
-  border-radius: calc(var(--w) * 0.008) calc(var(--w) * 0.008) calc(var(--w) * 0.03) calc(var(--w) * 0.03);
-  background:
-    url("assets/img/macbook-deck.webp") center / 100% 100% no-repeat, /* pre-rendered: a bitmap scales cheaply, the SVG re-rasterized on every scroll frame */
-    radial-gradient(80% 70% at 50% 30%, rgba(255, 255, 255, 0.5), transparent 70%),
-    linear-gradient(180deg, #d2d5da, #e6e8eb 35%, #dadde1);
-  box-shadow: inset 0 0 0 1px #b4b7bd, inset 0 calc(var(--w) * -0.003) 0 rgba(255, 255, 255, 0.8);
+.mb__off { background: radial-gradient(135% 100% at 26% -12%, #191d25, #050609 58%); pointer-events: none; opacity: calc(1 - (var(--open, 0) - 0.72) * 4); }
+.mb__glare { background: linear-gradient(118deg, rgba(255, 255, 255, 0.11) 0 19%, rgba(255, 255, 255, 0.035) 33%, transparent 34%); pointer-events: none; }
+.mb .dmac__notch {
+  z-index: 3; top: 2.5%; width: 8.6%; height: 3.4%;
+  border-radius: 0 0 calc(var(--w) * 0.007) calc(var(--w) * 0.007); background: #07080b;
 }
-/* Shade from the lid near the hinge + screen light spilling onto the keys */
+/* Camera: sized from the lid width (cqw would resolve against the viewport here) and centred in the notch */
+.mb .dmac__notch::after {
+  top: 50%; left: 50%; width: calc(var(--w) * 0.0058); height: calc(var(--w) * 0.0058);
+  transform: translate(-50%, -50%); box-shadow: none;
+  background: radial-gradient(circle at 34% 32%, #2b3952, #090c12 62%);
+}
+/* Keyboard deck: anodised midnight plus the pre-rendered keyboard and trackpad */
+.mb__deck {
+  position: absolute; top: 100%; left: 0; width: 100%; height: var(--d);
+  transform-origin: 50% 0; transform: rotateX(90deg);
+  border-radius: calc(var(--w) * 0.007) calc(var(--w) * 0.007) var(--r) var(--r);
+  background:
+    url("assets/img/macbook-deck.webp") center / 100% 100% no-repeat,
+    radial-gradient(85% 70% at 50% 16%, rgba(255, 255, 255, 0.09), transparent 72%),
+    linear-gradient(180deg, #1e252f, #2c3542 32%, #262e3a);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+/* Shade cast by the lid near the hinge */
 .mb__deck::after {
   content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: linear-gradient(180deg, rgba(14, 15, 19, 0.28), transparent 14%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent 13%);
 }
 .mb__glow {
-  position: absolute; inset: 0 0 40% 0; pointer-events: none; border-radius: inherit;
-  background: radial-gradient(70% 60% at 50% 0%, rgba(140, 160, 255, 0.28), transparent 70%);
+  position: absolute; inset: 0 0 42% 0; pointer-events: none; border-radius: inherit;
+  background: radial-gradient(70% 62% at 50% 0%, rgba(150, 170, 255, 0.2), transparent 70%);
   opacity: calc((var(--open, 0) - 0.75) * 4);
 }
 .mb__hinge {
-  position: absolute; top: 100%; left: 12%; width: 76%; height: calc(var(--w) * 0.012);
-  transform: translateY(-50%); border-radius: calc(var(--w) * 0.006);
-  background: linear-gradient(180deg, #2a2b2f, #0d0d10 55%, #3a3b40);
+  position: absolute; top: 100%; left: 8.5%; width: 83%; height: calc(var(--w) * 0.009);
+  transform: translateY(-50%); border-radius: calc(var(--w) * 0.005);
+  background: linear-gradient(180deg, #05070a, #1b222c 58%, #39434f);
 }
+/* Front edge of the base, with the bright chamfer along the top */
 .mb__lip {
   position: absolute; top: 100%; left: 0; width: 100%; height: var(--t);
-  transform: translateZ(var(--d)); border-radius: 0 0 calc(var(--w) * 0.03) calc(var(--w) * 0.03) / 0 0 calc(var(--w) * 0.012) calc(var(--w) * 0.012);
-  background: linear-gradient(180deg, #e2e4e8, #b5b8be 55%, #8f9298);
+  transform: translateZ(var(--d));
+  border-radius: 0 0 var(--r) var(--r) / 0 0 calc(var(--w) * 0.013) calc(var(--w) * 0.013);
+  background: linear-gradient(180deg, var(--m-chamfer) 0 7%, #3c4652 17%, #242c38 68%, #181e27);
 }
 /* Finger notch in the front edge */
-.mb__lip span { position: absolute; top: 0; left: 50%; width: 12%; height: 55%; transform: translateX(-50%); border-radius: 0 0 50% 50% / 0 0 100% 100%; background: linear-gradient(180deg, #9a9da3, #c9ccd1); }
+.mb__lip span {
+  position: absolute; top: 0; left: 50%; width: 11%; height: 58%; transform: translateX(-50%);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%; background: linear-gradient(180deg, #11161d, #2b3440);
+}
 /* Left and right edges of the base */
 .mb__side {
-  position: absolute; top: 100%; width: var(--d); height: var(--t); transform-origin: 0 0; transform: rotateY(-90deg);
-  background: linear-gradient(180deg, #d9dbdf, #a4a7ad);
+  position: absolute; top: 100%; width: var(--d); height: var(--t);
+  transform-origin: 0 0; transform: rotateY(-90deg);
+  background: linear-gradient(180deg, var(--m-chamfer) 0 6%, #353f4b 15%, #1c232d);
 }
 .mb__side--l { left: 0; }
 .mb__side--r { left: 100%; }
 /* Soft shadow on the "table" under the laptop */
 .mb__floor {
-  position: absolute; top: 100%; left: -14%; width: 128%; height: calc(var(--d) * 1.3);
-  transform-origin: 50% 0; transform: translateY(var(--t)) rotateX(90deg) translateY(-6%);
-  background: radial-gradient(closest-side, rgba(14, 15, 19, 0.42), rgba(14, 15, 19, 0.16) 62%, transparent);
+  position: absolute; top: 100%; left: -12%; width: 124%; height: calc(var(--d) * 1.26);
+  transform-origin: 50% 0; transform: translateY(var(--t)) rotateX(90deg) translateY(-5%);
+  background: radial-gradient(closest-side, rgba(14, 15, 19, 0.5), rgba(14, 15, 19, 0.2) 58%, transparent);
 }
 
 /* Sample automation app on the screen; sized in cqw so it scales with the laptop */
@@ -743,7 +774,7 @@ body.has-dialog { overflow: hidden; }
   .notif { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(50, 50, 56, 0.9); }
   .lock__actions span { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(40, 40, 46, 0.8); }
   .mbwrap { height: 200vh; height: 200svh; }
-  .mb { --w: calc(100vw - 72px); --turn: -7deg; }
+  .mb { --w: calc(100vw - 100px); --turn: -7deg; }
 }
 
 @media (prefers-reduced-motion: reduce) {
