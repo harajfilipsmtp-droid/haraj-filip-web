@@ -408,6 +408,12 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
 .project__date { font-family: var(--mono); font-size: 0.8rem; color: var(--ink); white-space: nowrap; padding-left: 10px; border-left: 2px solid var(--blue); }
 .project__proof { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin-bottom: 16px; font-size: 0.85rem; color: var(--muted); }
 .live { display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px; border: 1.5px solid var(--ink); border-radius: 999px; font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink); background: #fff; }
+/* "V spolupráci s IMPOFAI" partner badge on projects built together with impofai.com */
+.collab { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); transition: color 0.2s; }
+.collab img { height: 15px; width: auto; transition: opacity 0.2s; }
+.collab:hover { color: var(--ink); }
+.collab:hover img { opacity: 0.75; }
+.collab--plain img { height: 17px; }
 .live i { position: relative; width: 7px; height: 7px; border-radius: 50%; background: #1fb85a; }
 /* Pulse ring animated with transform/opacity (GPU) instead of box-shadow, which repainted every frame */
 .live i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: rgba(31, 184, 90, 0.6); animation: livePing 2s infinite; }
@@ -551,7 +557,7 @@ h2 { font-size: clamp(2.6rem, 5.6vw, 5rem); font-weight: 800; line-height: 1; le
 @starting-style { .detail[open]::backdrop { background: rgba(14, 15, 19, 0); backdrop-filter: blur(0); } }
 body.has-dialog { overflow: hidden; }
 
-.detail__inner { padding: 36px 48px 60px; display: grid; gap: 34px; }
+.detail__inner { padding: 36px 48px 60px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 34px; }
 .detail__top { display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1; margin: -36px -48px 0; padding: 22px 48px; background: rgba(237, 236, 231, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--soft-line); }
 .detail__close {
   width: 42px; height: 42px; border: 1.5px solid var(--ink); border-radius: 50%; background: transparent; cursor: pointer;
