@@ -14,8 +14,59 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Pauses the hero animation while the intro runs. Self-releasing, so a broken script can never lock the page.
+    (function () {
+      var r = document.documentElement;
+      if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      r.classList.add("is-booting");
+      setTimeout(function () { r.classList.remove("is-booting"); }, 2750);
+    })();
+  </script>
+  <noscript><style>.boot { display: none; } html.is-booting { overflow: auto; }</style></noscript>
 </head>
 <body>
+  <!-- Short code rush shown while the page loads, removed by main.js -->
+  <div class="boot" aria-hidden="true">
+    <div class="boot__log">
+      <p style="--i:0">$ ssh filip@filipharaj.com</p>
+      <p style="--i:1">Connected. Building workspace ...</p>
+      <p style="--i:2">&nbsp;</p>
+      <p style="--i:3">[ 1/10] core/runtime ................ <b>ok</b></p>
+      <p style="--i:4">[ 2/10] ai/ocr-engine ............... <b>ok</b></p>
+      <p style="--i:5">[ 3/10] integrations/gmail .......... <b>ok</b></p>
+      <p style="--i:6">[ 4/10] integrations/whatsapp ....... <b>ok</b></p>
+      <p style="--i:7">[ 5/10] integrations/monday-crm ..... <b>ok</b></p>
+      <p style="--i:8">[ 6/10] integrations/google-calendar  <b>ok</b></p>
+      <p style="--i:9">[ 7/10] automations/invoices ........ <b>ok</b></p>
+      <p style="--i:10">[ 8/10] automations/leads ........... <b>ok</b></p>
+      <p style="--i:11">[ 9/10] web/ui + forms .............. <b>ok</b></p>
+      <p style="--i:12">[10/10] deploy/edge ................. <b>ok</b></p>
+      <p style="--i:13">&nbsp;</p>
+      <p style="--i:14">GET   /api/invoices?status=new        <b>200</b>   38 ms</p>
+      <p style="--i:15">AI    parsing invoice_2026_104.pdf</p>
+      <p style="--i:16">      supplier   <b>Dodávateľ s.r.o.</b></p>
+      <p style="--i:17">      amount     <b>1 240,00 EUR</b></p>
+      <p style="--i:18">      due        <b>24. 10. 2026</b></p>
+      <p style="--i:19">POST  monday.com/v2/items             <b>201</b>  112 ms</p>
+      <p style="--i:20">BANK  statement matched   VS 2026104  <b>paid</b></p>
+      <p style="--i:21">&nbsp;</p>
+      <p style="--i:22">WA    +421 ... new message</p>
+      <p style="--i:23">AI    lead score <b>0.91</b>  -&gt;  qualified</p>
+      <p style="--i:24">POST  calendar/events                 <b>201</b>   64 ms</p>
+      <p style="--i:25">MAIL  confirmation sent               <b>250</b>   ok</p>
+      <p style="--i:26">&nbsp;</p>
+      <p style="--i:27">&gt; saved today: <b>2 h 40 min</b></p>
+      <p style="--i:28">&gt; running automations: <b>14</b></p>
+      <p style="--i:29">&gt; uptime: <b>99.98 %</b></p>
+      <p style="--i:30">&nbsp;</p>
+      <p style="--i:31">$ render --target=portfolio</p>
+      <p style="--i:32">building sections .................. <b>6/6</b></p>
+      <p style="--i:33"><b>build complete in 1.84 s</b></p>
+      <p style="--i:34">&gt; Filip Haraj / softverove riesenia na mieru<span class="boot__caret"></span></p>
+    </div>
+    <div class="boot__bar"><i></i></div>
+  </div>
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="#" class="logo">Filip Haraj</a>

@@ -694,6 +694,30 @@ body.has-dialog { overflow: hidden; }
   .gallery__cap { white-space: normal; }
 }
 
+/* ---------- Boot screen: a short code rush before the page appears ---------- */
+/* Driven entirely by CSS, so a script that fails to load can never leave the visitor on a black screen. */
+html.is-booting { overflow: hidden; }
+html.is-booting .anim { animation-play-state: paused; }
+.boot {
+  position: fixed; inset: 0; z-index: 100; background: var(--bg);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 0 clamp(16px, 4vw, 54px) 34px; overflow: hidden;
+  /* 2.9vw keeps the widest line (49 characters) inside a 360px phone */
+  font-family: var(--mono); font-size: clamp(9.5px, 2.78vw, 12.5px); line-height: 1.75; color: #8b8c90;
+  animation: bootOut 0.62s var(--ease) 2.15s forwards;
+}
+@keyframes bootOut { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+.boot__log p { margin: 0; white-space: pre; opacity: 0; animation: bootLine 0.24s var(--ease) calc(var(--i) * 48ms) forwards; }
+@keyframes bootLine { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: none; } }
+.boot b { color: var(--ink); font-weight: 500; }
+.boot__caret { display: inline-block; width: 0.55em; height: 1.05em; margin-left: 2px; vertical-align: -0.2em; background: var(--ink); animation: bootCaret 0.9s steps(2, jump-none) infinite; }
+@keyframes bootCaret { 50% { opacity: 0; } }
+.boot__bar { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: #1d1e22; }
+.boot__bar i { display: block; height: 100%; width: 0; background: var(--ink); animation: bootBar 2s linear forwards; }
+@keyframes bootBar { to { width: 100%; } }
+/* With motion turned off the animations never run, so there would be nothing to fade the overlay out */
+@media (prefers-reduced-motion: reduce) { .boot { display: none; } }
+
 /* ---------- Motion ---------- */
 .anim { opacity: 0; transform: translateY(28px); animation: up 1s var(--ease) forwards; animation-delay: calc(var(--d) * 0.12s + 0.05s); }
 @keyframes up { to { opacity: 1; transform: none; } }

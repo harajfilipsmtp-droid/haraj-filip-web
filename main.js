@@ -287,7 +287,7 @@ if (mbwrap) {
   };
 
   const invoices = [
-    { sup: "Stavmat s.r.o.", sum: "1 240,00 €", due: "24. 10. 2026", vs: "2026104" },
+    { sup: "Dodávateľ s.r.o.", sum: "1 240,00 €", due: "24. 10. 2026", vs: "2026104" },
     { sup: "DrevoTrade s.r.o.", sum: "3 870,50 €", due: "30. 10. 2026", vs: "1100482" },
     { sup: "Kancel Pro a.s.", sum: "212,30 €", due: "18. 10. 2026", vs: "5520193" },
     { sup: "Elektro Varga", sum: "945,00 €", due: "2. 11. 2026", vs: "8810027" },
