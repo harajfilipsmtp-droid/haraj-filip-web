@@ -15,12 +15,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700;800;900&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script>
-    // Pauses the hero animation while the intro runs. Self-releasing, so a broken script can never lock the page.
+    // Pauses the hero animation while the intro runs and lets a click skip it.
+    // Self-releasing, so a broken script can never lock the page.
     (function () {
       var r = document.documentElement;
       if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       r.classList.add("is-booting");
-      setTimeout(function () { r.classList.remove("is-booting"); }, 2750);
+      var end = function (skipped) {
+        r.classList.remove("is-booting");
+        if (skipped) r.classList.add("boot-skipped");
+        document.removeEventListener("click", onSkip, true);
+        document.removeEventListener("keydown", onSkip, true);
+        document.removeEventListener("wheel", onSkip, true);
+      };
+      // "click", not "pointerdown": the intro swallows the click instead of passing it to the page underneath
+      function onSkip() { end(true); }
+      document.addEventListener("click", onSkip, true);
+      document.addEventListener("keydown", onSkip, true);
+      document.addEventListener("wheel", onSkip, true);
+      setTimeout(function () { end(false); }, 2750);
     })();
   </script>
   <noscript><style>.boot { display: none; } html.is-booting { overflow: auto; }</style></noscript>
