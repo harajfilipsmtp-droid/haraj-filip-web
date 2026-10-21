@@ -96,7 +96,7 @@ form.addEventListener("submit", async (e) => {
   const data = new FormData(form);
   const payload = {
     "form-name": "kontakt",
-    subject: `Nový dopyt z webu – ${data.get("meno")}`,
+    subject: `Nový dopyt z webu - ${data.get("meno")}`,
     meno: data.get("meno"),
     email: data.get("email"),
     firma: data.get("firma"),
@@ -114,7 +114,7 @@ form.addEventListener("submit", async (e) => {
     window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
   };
 
-  // Opened straight from disk (no server) – fall back to the e-mail client
+  // Opened straight from disk (no server) - fall back to the e-mail client
   if (location.protocol === "file:") return mailtoFallback();
 
   const button = form.querySelector("button[type=submit]");

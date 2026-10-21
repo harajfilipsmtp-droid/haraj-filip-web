@@ -6,7 +6,7 @@ const SITE = "https://filipharaj.com";
 const escapeHtml = (value = "") =>
   String(value).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
 
-export const subject = "Ďakujem za váš dopyt – Filip Haraj";
+export const subject = "Ďakujem za váš dopyt - Filip Haraj";
 
 export function text(meno) {
   return `Dobrý deň ${meno},
