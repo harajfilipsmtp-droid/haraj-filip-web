@@ -85,11 +85,19 @@ form.querySelectorAll("input, textarea").forEach((input) =>
   input.addEventListener("input", () => input.closest(".field, .consent")?.classList.remove("is-invalid"))
 );
 
+// The consent text sits inside its <label>, so a click on the link would also tick the box
+form.querySelectorAll(".consent a").forEach((link) =>
+  link.addEventListener("click", (e) => e.stopPropagation())
+);
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (form._gotcha.value) return; // bot
   if (!validate()) {
-    setStatus("Vyplňte prosím povinné polia označené *.", "error");
+    const consentOnly = !form.suhlas.checked && !form.querySelector(".field.is-invalid");
+    setStatus(consentOnly
+      ? "Bez súhlasu so spracovaním osobných údajov dopyt odoslať nemôžem."
+      : "Vyplňte prosím povinné polia označené *.", "error");
     return;
   }
 
