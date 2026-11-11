@@ -3,6 +3,11 @@
   "name": "haraj-filip-web",
   "main": "src/worker.js",
   "compatibility_date": "2026-10-01",
+  // The Worker answers on the real domain; Cloudflare creates the DNS records and certificates itself.
+  "routes": [
+    { "pattern": "filipharaj.com", "custom_domain": true },
+    { "pattern": "www.filipharaj.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
