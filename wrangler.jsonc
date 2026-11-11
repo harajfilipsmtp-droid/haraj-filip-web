@@ -1,0 +1,18 @@
+{
+  // Cloudflare Worker that serves the site from public/ and answers the contact form on /api/kontakt.
+  "name": "haraj-filip-web",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    // only the form API runs code; every other request is a plain static file
+    "run_worker_first": ["/api/*"]
+  },
+  // Public settings live here so a deploy never wipes them; RESEND_API_KEY is a secret set in the dashboard.
+  "vars": {
+    "MAIL_FROM": "Filip Haraj <kontakt@filipharaj.com>",
+    "MAIL_TO": "harajfilip.co@gmail.com"
+  },
+  "observability": { "enabled": true }
+}

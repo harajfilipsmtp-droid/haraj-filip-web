@@ -1,11 +1,11 @@
-// Cloudflare Pages Function behind POST /api/kontakt - replaces Netlify Forms.
+// Handles POST /api/kontakt (routed from src/worker.js) - replaces Netlify Forms.
 // It e-mails the inquiry to Filip and sends the visitor the confirmation.
 //
-// Environment variables (Cloudflare Pages -> Settings -> Variables and Secrets):
-//   RESEND_API_KEY  secret from resend.com
-//   MAIL_FROM       verified sender, e.g. "Filip Haraj <kontakt@filipharaj.com>"
-//   MAIL_TO         where inquiries land, e.g. harajfilip.co@gmail.com
-import { subject as confirmSubject, text as confirmText, html as confirmHtml } from "../../email/potvrdenie.js";
+// Configuration:
+//   RESEND_API_KEY  secret from resend.com, set in Cloudflare -> haraj-filip-web -> Settings -> Variables and Secrets
+//   MAIL_FROM       verified sender, in wrangler.jsonc "vars"
+//   MAIL_TO         where inquiries land, in wrangler.jsonc "vars"
+import { subject as confirmSubject, text as confirmText, html as confirmHtml } from "./potvrdenie.js";
 
 const json = (status, body) =>
   new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json; charset=utf-8" } });
@@ -49,7 +49,7 @@ ${row("Meno", f.meno)}${row("E-mail", f.email)}${row("Telefón", f.telefon)}${ro
 </div>`;
 }
 
-export async function onRequestPost({ request, env }) {
+export async function handleKontakt(request, env) {
   let f;
   try {
     f = await readFields(request);
@@ -101,5 +101,4 @@ export async function onRequestPost({ request, env }) {
   return json(200, { ok: true });
 }
 
-// A GET on this path is never useful, so answer it plainly instead of with the site.
-export const onRequestGet = () => json(405, { error: "Použite POST." });
+export { json };

@@ -2,36 +2,34 @@
 
 Prezentačný web Filipa Haraja (AI engineer a web developer).
 
-Čisté HTML, CSS a JavaScript bez build kroku. Stačí otvoriť `index.html`; kontaktný formulár
-ale potrebuje bežiacu funkciu, takže pri vývoji spúšťaj `npx wrangler pages dev .`.
+Statický web v čistom HTML, CSS a JavaScripte bez build kroku plus malý Cloudflare Worker
+pre kontaktný formulár. Lokálne celé spustíš príkazom `npx wrangler dev`.
 
 ## Štruktúra
 
-- `index.html` - obsah stránky
-- `ochrana-osobnych-udajov.html` - povinné informácie o spracúvaní osobných údajov
-- `styles.css` - dizajn
-- `main.js` - úvodná animácia, hero, detaily projektov, kontaktný formulár
-- `assets/img/` - obrázky
-- `functions/api/kontakt.js` - Cloudflare Pages Function, ktorá prijme dopyt a pošle e-maily
-- `email/potvrdenie.js` - šablóna potvrdzovacieho e-mailu pre odosielateľa
+- `public/` - všetko, čo vidí návštevník
+  - `index.html`, `ochrana-osobnych-udajov.html`, `styles.css`, `main.js`, `assets/img/`
+- `src/worker.js` - vstupný bod Workera: `/api/kontakt` obslúži formulár, všetko ostatné sú statické súbory
+- `src/kontakt.js` - spracovanie dopytu a odoslanie e-mailov
+- `src/potvrdenie.js` - šablóna potvrdzovacieho e-mailu pre odosielateľa
+- `wrangler.jsonc` - konfigurácia Workera
 
 ## Hosting
 
-Web beží na **Cloudflare Pages**, nasadzuje sa z vetvy `main` na GitHube.
-Build command je prázdny, output directory je koreň (`/`).
+Web beží na **Cloudflare** ako Worker `haraj-filip-web` so statickými súbormi.
+Každý push do vetvy `main` na GitHube spustí build s príkazom `npx wrangler deploy`.
 
 ## Kontaktný formulár
 
-Formulár posiela JSON na `/api/kontakt`. Funkcia skontroluje povinné polia, súhlas
-so spracovaním údajov aj skrytú pascu na roboty (`_gotcha`) a potom cez
-[Resend](https://resend.com) odošle dva e-maily: dopyt na `MAIL_TO` a potvrdenie odosielateľovi.
+Formulár posiela JSON na `/api/kontakt`. Worker skontroluje povinné polia, súhlas
+so spracovaním údajov aj skrytú pascu na roboty (`_gotcha`) a cez [Resend](https://resend.com)
+odošle dva e-maily: dopyt na `MAIL_TO` a potvrdenie odosielateľovi.
 
-Premenné nastav v Cloudflare Pages (Settings → Variables and secrets), lokálne v `.dev.vars`:
+| Premenná | Kde je | Hodnota |
+| --- | --- | --- |
+| `MAIL_FROM` | `wrangler.jsonc` | `Filip Haraj <kontakt@filipharaj.com>` - doména musí byť overená v Resende |
+| `MAIL_TO` | `wrangler.jsonc` | `harajfilip.co@gmail.com` |
+| `RESEND_API_KEY` | Cloudflare → haraj-filip-web → Settings → Variables and Secrets (typ Secret); lokálne `.dev.vars` | `re_...` |
 
-| Premenná | Príklad |
-| --- | --- |
-| `RESEND_API_KEY` | `re_...` (secret) |
-| `MAIL_FROM` | `Filip Haraj <kontakt@filipharaj.com>` - doména musí byť overená v Resende |
-| `MAIL_TO` | `harajfilip.co@gmail.com` |
-
-Keď premenné chýbajú, funkcia vráti chybu a formulár o tom používateľa informuje.
+Keď kľúč chýba alebo Resend odmietne odoslanie, formulár používateľovi ukáže chybu
+a odkáže ho na e-mail.
