@@ -57,9 +57,9 @@ window.addEventListener("scroll", () => {
 }, { passive: true });
 
 // ---------- Contact form ----------
-// Odpovede spracúvajú Netlify Forms (formulár "kontakt" v index.html). Netlify ich
-// uloží a pošle e-mailom. Ak odoslanie zlyhá, formulár otvorí e-mailového klienta.
-const FORM_ENDPOINT = "/";
+// Dopyt spracuje Cloudflare Pages Function vo functions/api/kontakt.js, ktorá pošle
+// e-mail mne aj odosielateľovi. Ak odoslanie zlyhá, formulár otvorí e-mailového klienta.
+const FORM_ENDPOINT = "/api/kontakt";
 const FALLBACK_EMAIL = "harajfilip.co@gmail.com";
 
 const form = document.getElementById("contactForm");
@@ -103,7 +103,6 @@ form.addEventListener("submit", async (e) => {
 
   const data = new FormData(form);
   const payload = {
-    "form-name": "kontakt",
     subject: `Nový dopyt z webu - ${data.get("meno")}`,
     meno: data.get("meno"),
     email: data.get("email"),
@@ -116,7 +115,7 @@ form.addEventListener("submit", async (e) => {
 
   const mailtoFallback = () => {
     const body = Object.entries(payload)
-      .filter(([k, v]) => v && !["form-name", "subject", "suhlas"].includes(k))
+      .filter(([k, v]) => v && !["subject", "suhlas"].includes(k))
       .map(([k, v]) => `${k}: ${v}`)
       .join("\n");
     window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
@@ -131,14 +130,16 @@ form.addEventListener("submit", async (e) => {
   try {
     const res = await fetch(FORM_ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams(payload).toString(),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error(res.status);
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) throw new Error(body.error || res.status);
     form.reset();
     setStatus("Ďakujem! Dopyt som dostal a čoskoro sa vám ozvem.", "ok");
-  } catch {
-    setStatus(`Odoslanie zlyhalo. Napíšte mi prosím priamo na ${FALLBACK_EMAIL}.`, "error");
+  } catch (err) {
+    const detail = err instanceof Error && isNaN(Number(err.message)) ? err.message : null;
+    setStatus(detail || `Odoslanie zlyhalo. Napíšte mi prosím priamo na ${FALLBACK_EMAIL}.`, "error");
   } finally {
     button.disabled = false;
   }

@@ -769,8 +769,7 @@
         <p class="mono accent-text reveal">Kontakt</p>
         <h2 class="contact__title reveal">Máte proces, ktorý vás brzdí? <span class="accent">Poďme ho zautomatizovať.</span></h2>
         <div class="contact__grid">
-          <form class="form reveal" id="contactForm" name="kontakt" method="POST" data-netlify="true" netlify-honeypot="_gotcha" novalidate>
-            <input type="hidden" name="form-name" value="kontakt" />
+          <form class="form reveal" id="contactForm" name="kontakt" method="POST" action="/api/kontakt" novalidate>
             <input type="hidden" name="subject" value="Nový dopyt z webu" />
             <div class="form__head">
               <p class="mono">Nezáväzný dopyt</p>

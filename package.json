@@ -1,8 +1,5 @@
 {
   "name": "haraj-filip-web",
   "private": true,
-  "type": "module",
-  "dependencies": {
-    "nodemailer": "^6.9.16"
-  }
+  "type": "module"
 }
